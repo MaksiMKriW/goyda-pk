@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoydaPK — Товар</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+  <canvas id="mouseTrail"></canvas>
+  
+  <div class="content">
+    <header class="page-header">
+      <div class="logo-area">
+        <a href="index.html" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
+          <i class="fas fa-microchip logo-icon"></i>
+          <div class="logo-text">Goyda<span>PK</span></div>
+        </a>
+      </div>
+      <div class="contact-info">
+        <span><i class="fas fa-phone-alt"></i> 8 (800) 555-35-35</span>
+        <span><i class="fas fa-envelope"></i> info@goyda.pk</span>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="catalog.html">Каталог</a></li>
+          <li><a href="about.html">О нас</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+          <li><a href="profile.html">Профиль</a></li>
+        </ul>
+      </nav>
+      <div class="header-icons">
+        <a href="profile.html"><i class="fas fa-user"></i></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
+      </div>
+    </header>
+
+    <main class="container">
+      <nav class="breadcrumbs">
+        <a href="index.html">Главная</a> /
+        <a href="catalog.html">Каталог</a> /
+        <span id="breadcrumbCategory">Процессоры</span> /
+        <span id="breadcrumbName">Загрузка...</span>
+      </nav>
+
+      <div class="product-detail glass" id="productDetail">
+        <div class="detail-image">
+          <i class="fas fa-microchip" id="productIcon"></i>
+        </div>
+        <div class="detail-info">
+          <h2 id="productName">Загрузка...</h2>
+          <div class="product-price" id="productPrice">0 ₽</div>
+          <div class="product-availability" id="productAvailability">
+            <i class="fas fa-check-circle"></i> В наличии
+          </div>
+          
+          <div class="specs-grid" id="productSpecs">
+            
+          </div>
+          
+          <div class="product-description" id="productDescription">
+            
+          </div>
+          
+          <div class="quantity-selector">
+            <label>Количество:</label>
+            <div class="quantity-controls">
+              <button class="quantity-btn minus">-</button>
+              <input type="number" min="1" value="1" class="quantity-input">
+              <button class="quantity-btn plus">+</button>
+            </div>
+          </div>
+          
+          <div class="product-actions">
+            <button class="btn btn-neon add-to-cart-detail" id="addToCartBtn">
+              <span>В корзину</span>
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn btn-outline add-to-wishlist">
+              <i class="far fa-heart"></i>
+              <span>В избранное</span>
+            </button>
+          </div>
+          
+          <div class="product-meta">
+            <div class="meta-item">
+              <i class="fas fa-truck"></i>
+              <span>Бесплатная доставка от 5000₽</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>Гарантия 3 года</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-undo-alt"></i>
+              <span>Возврат 14 дней</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-tabs">
+        <div class="tabs-header">
+          <button class="tab-btn active" data-tab="description">Описание</button>
+          <button class="tab-btn" data-tab="specs">Характеристики</button>
+          <button class="tab-btn" data-tab="reviews">Отзывы (128)</button>
+        </div>
+        <div class="tab-content active" id="tab-description">
+          <div id="fullDescription"></div>
+        </div>
+        <div class="tab-content" id="tab-specs">
+          <div id="fullSpecs"></div>
+        </div>
+        <div class="tab-content" id="tab-reviews">
+          <div class="reviews-list">
+            <div class="review-item glass">
+              <div class="review-header">
+                <i class="fas fa-user-circle"></i>
+                <strong>Алексей С.</strong>
+                <div class="review-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+              <p>Отличный товар! Справляется со всеми задачами на ура. Рекомендую!</p>
+              <span class="review-date">15 марта 2026</span>
+            </div>
+            <div class="review-item glass">
+              <div class="review-header">
+                <i class="fas fa-user-circle"></i>
+                <strong>Дмитрий В.</strong>
+                <div class="review-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+              <p>Доволен покупкой. Быстрая доставка, всё в идеальном состоянии.</p>
+              <span class="review-date">10 марта 2026</span>
+            </div>
+          </div>
+          <button class="btn btn-outline write-review">Написать отзыв</button>
+        </div>
+      </div>
+
+      <h2 class="section-title">
+        <span class="title-gradient">Похожие товары</span>
+      </h2>
+      <div class="product-grid" id="relatedProducts">
+       
+      </div>
+    </main>
+
+    <footer class="page-footer">
+      <div class="footer-copy">© 2026 GoydaPK | Криворотов М.В, Мартиросов В.В</div>
+      <div class="footer-social">
+        <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="javascript.js"></script>
+</body>
+</html>

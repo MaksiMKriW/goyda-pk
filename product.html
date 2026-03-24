@@ -9,13 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <canvas id="bgCanvas"></canvas>
-  <canvas id="mouseTrail"></canvas>
-  
   <div class="content">
     <header class="page-header">
       <div class="logo-area">
-        <a href="index.html" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
+        <a href="index.html">
           <i class="fas fa-microchip logo-icon"></i>
           <div class="logo-text">Goyda<span>PK</span></div>
         </a>
@@ -43,7 +40,7 @@
       <nav class="breadcrumbs">
         <a href="index.html">Главная</a> /
         <a href="catalog.html">Каталог</a> /
-        <span id="breadcrumbCategory">Процессоры</span> /
+        <span id="breadcrumbCategory">Категория</span> /
         <span id="breadcrumbName">Загрузка...</span>
       </nav>
 
@@ -58,47 +55,32 @@
             <i class="fas fa-check-circle"></i> В наличии
           </div>
           
-          <div class="specs-grid" id="productSpecs">
-            
-          </div>
+          <div class="specs-grid" id="productSpecs"></div>
           
-          <div class="product-description" id="productDescription">
-            
-          </div>
+          <div class="product-description" id="productDescription"></div>
           
           <div class="quantity-selector">
             <label>Количество:</label>
             <div class="quantity-controls">
-              <button class="quantity-btn minus">-</button>
-              <input type="number" min="1" value="1" class="quantity-input">
-              <button class="quantity-btn plus">+</button>
+              <button class="quantity-btn minus" id="quantityMinus">-</button>
+              <input type="number" min="1" value="1" class="quantity-input" id="quantityInput">
+              <button class="quantity-btn plus" id="quantityPlus">+</button>
             </div>
           </div>
           
           <div class="product-actions">
-            <button class="btn btn-neon add-to-cart-detail" id="addToCartBtn">
-              <span>В корзину</span>
-              <i class="fas fa-shopping-cart"></i>
+            <button class="btn btn-neon" id="addToCartBtn">
+              <i class="fas fa-shopping-cart"></i> В корзину
             </button>
-            <button class="btn btn-outline add-to-wishlist">
-              <i class="far fa-heart"></i>
-              <span>В избранное</span>
+            <button class="btn btn-outline" id="wishlistBtn">
+              <i class="far fa-heart"></i> В избранное
             </button>
           </div>
           
           <div class="product-meta">
-            <div class="meta-item">
-              <i class="fas fa-truck"></i>
-              <span>Бесплатная доставка от 5000₽</span>
-            </div>
-            <div class="meta-item">
-              <i class="fas fa-shield-alt"></i>
-              <span>Гарантия 3 года</span>
-            </div>
-            <div class="meta-item">
-              <i class="fas fa-undo-alt"></i>
-              <span>Возврат 14 дней</span>
-            </div>
+            <div class="meta-item"><i class="fas fa-truck"></i> Бесплатная доставка от 5000₽</div>
+            <div class="meta-item"><i class="fas fa-shield-alt"></i> Гарантия 3 года</div>
+            <div class="meta-item"><i class="fas fa-undo-alt"></i> Возврат 14 дней</div>
           </div>
         </div>
       </div>
@@ -107,7 +89,7 @@
         <div class="tabs-header">
           <button class="tab-btn active" data-tab="description">Описание</button>
           <button class="tab-btn" data-tab="specs">Характеристики</button>
-          <button class="tab-btn" data-tab="reviews">Отзывы (128)</button>
+          <button class="tab-btn" data-tab="reviews">Отзывы (<span id="reviewsCount">0</span>)</button>
         </div>
         <div class="tab-content active" id="tab-description">
           <div id="fullDescription"></div>
@@ -116,48 +98,15 @@
           <div id="fullSpecs"></div>
         </div>
         <div class="tab-content" id="tab-reviews">
-          <div class="reviews-list">
-            <div class="review-item glass">
-              <div class="review-header">
-                <i class="fas fa-user-circle"></i>
-                <strong>Алексей С.</strong>
-                <div class="review-rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                </div>
-              </div>
-              <p>Отличный товар! Справляется со всеми задачами на ура. Рекомендую!</p>
-              <span class="review-date">15 марта 2026</span>
-            </div>
-            <div class="review-item glass">
-              <div class="review-header">
-                <i class="fas fa-user-circle"></i>
-                <strong>Дмитрий В.</strong>
-                <div class="review-rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                </div>
-              </div>
-              <p>Доволен покупкой. Быстрая доставка, всё в идеальном состоянии.</p>
-              <span class="review-date">10 марта 2026</span>
-            </div>
-          </div>
-          <button class="btn btn-outline write-review">Написать отзыв</button>
+          <div id="reviewsList"></div>
+          <button class="btn btn-outline write-review" id="writeReviewBtn">Написать отзыв</button>
         </div>
       </div>
 
       <h2 class="section-title">
         <span class="title-gradient">Похожие товары</span>
       </h2>
-      <div class="product-grid" id="relatedProducts">
-       
-      </div>
+      <div class="product-grid" id="relatedProducts"></div>
     </main>
 
     <footer class="page-footer">
@@ -170,6 +119,548 @@
     </footer>
   </div>
 
+  <div id="reviewModal" class="modal">
+    <div class="modal-content glass">
+      <h3>Написать отзыв</h3>
+      <div class="star-rating">
+        <i class="far fa-star" data-rating="1"></i>
+        <i class="far fa-star" data-rating="2"></i>
+        <i class="far fa-star" data-rating="3"></i>
+        <i class="far fa-star" data-rating="4"></i>
+        <i class="far fa-star" data-rating="5"></i>
+      </div>
+      <textarea id="reviewText" rows="4" placeholder="Ваш отзыв..."></textarea>
+      <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+        <button class="btn-outline close-modal">Отмена</button>
+        <button class="btn-neon" id="submitReview">Отправить</button>
+      </div>
+    </div>
+  </div>
+
   <script src="javascript.js"></script>
+  <script>
+    
+    const products = {
+      1: {
+        id: 1,
+        name: "Intel Core i5-13400",
+        price: 17490,
+        icon: "fa-microchip",
+        category: "cpu",
+        categoryName: "Процессоры",
+        specs: ["10 ядер", "4.6 ГГц", "LGA1700", "20 МБ кэш", "65W TDP"],
+        fullSpecs: [
+          { label: "Производитель", value: "Intel" },
+          { label: "Модель", value: "Core i5-13400" },
+          { label: "Количество ядер", value: "10 (6 производительных + 4 энергоэффективных)" },
+          { label: "Максимальная частота", value: "4.6 ГГц" },
+          { label: "Сокет", value: "LGA1700" },
+          { label: "Кэш-память", value: "20 МБ" },
+          { label: "Техпроцесс", value: "10 нм" },
+          { label: "Поддержка памяти", value: "DDR4-3200, DDR5-4800" },
+          { label: "Макс. температура", value: "100°C" },
+          { label: "TDP", value: "65 Вт" }
+        ],
+        description: "Intel Core i5-13400 — это мощный процессор для игр и рабочих задач. Благодаря гибридной архитектуре, он отлично справляется как с требовательными играми, так и с многозадачностью. Поддержка PCIe 5.0 и DDR5 обеспечивает высокую производительность в современных системах.",
+        fullDescription: "<p>Intel Core i5-13400 — это процессор среднего сегмента, который предлагает отличное соотношение цены и производительности. Он оснащен 10 ядрами (6 производительных и 4 энергоэффективных) и поддерживает многопоточность, что позволяет эффективно обрабатывать до 16 потоков одновременно.</p><p>Максимальная частота в режиме Turbo Boost достигает 4.6 ГГц, обеспечивая высокую производительность в играх и приложениях. Процессор поддерживает оперативную память DDR4 и DDR5, что дает гибкость при сборке системы.</p><p>С TDP всего 65 Вт, процессор не требует мощного охлаждения и подходит для компактных сборок. Встроенная графика Intel UHD 730 позволяет использовать систему без дискретной видеокарты для офисных задач и мультимедиа.</p>"
+      },
+      2: {
+        id: 2,
+        name: "AMD Ryzen 5 5600X",
+        price: 13590,
+        icon: "fa-microchip",
+        category: "cpu",
+        categoryName: "Процессоры",
+        specs: ["6 ядер", "4.6 ГГц", "AM4", "32 МБ кэш", "65W TDP"],
+        fullSpecs: [
+          { label: "Производитель", value: "AMD" },
+          { label: "Модель", value: "Ryzen 5 5600X" },
+          { label: "Количество ядер", value: "6" },
+          { label: "Количество потоков", value: "12" },
+          { label: "Максимальная частота", value: "4.6 ГГц" },
+          { label: "Сокет", value: "AM4" },
+          { label: "Кэш-память L3", value: "32 МБ" },
+          { label: "Техпроцесс", value: "7 нм" },
+          { label: "Поддержка памяти", value: "DDR4-3200" },
+          { label: "TDP", value: "65 Вт" }
+        ],
+        description: "AMD Ryzen 5 5600X — идеальный выбор для игр и работы. 6 ядер и 12 потоков обеспечивают отличную многозадачность. Процессор построен на архитектуре Zen 3, которая дает прирост производительности до 19% по сравнению с предыдущим поколением.",
+        fullDescription: "<p>AMD Ryzen 5 5600X — это шестиядерный процессор на архитектуре Zen 3, который стал одним из лучших в своем классе. Он предлагает отличную производительность в играх и приложениях, при этом потребляя всего 65 Вт.</p><p>Техпроцесс 7 нм обеспечивает высокую энергоэффективность, а кэш-память L3 объемом 32 МБ ускоряет работу с данными. Процессор поддерживает технологию Precision Boost 2, которая автоматически повышает частоту до 4.6 ГГц под нагрузкой.</p><p>Ryzen 5 5600X отлично подходит для сборки игрового ПК среднего уровня и отлично справляется с видеомонтажом, 3D-моделированием и другими ресурсоемкими задачами.</p>"
+      },
+      3: {
+        id: 3,
+        name: "Kingston Fury 16GB",
+        price: 8990,
+        icon: "fa-memory",
+        category: "ram",
+        categoryName: "Оперативная память",
+        specs: ["DDR4", "3200 МГц", "CL16", "16GB", "2x8GB"],
+        fullSpecs: [
+          { label: "Тип памяти", value: "DDR4" },
+          { label: "Объем", value: "16 ГБ (2x8 ГБ)" },
+          { label: "Частота", value: "3200 МГц" },
+          { label: "Тайминги", value: "CL16-18-18" },
+          { label: "Напряжение", value: "1.35 В" },
+          { label: "Радиатор", value: "Алюминиевый, черный" },
+          { label: "Подсветка", value: "Нет" },
+          { label: "Профили XMP", value: "Да" }
+        ],
+        description: "Kingston Fury Beast 16GB — высокопроизводительная оперативная память с частотой 3200 МГц. Идеально подходит для игровых и рабочих систем. Поддержка XMP позволяет легко настроить оптимальные параметры.",
+        fullDescription: "<p>Kingston Fury Beast — это оперативная память для энтузиастов, которая сочетает высокую производительность и надежность. Частота 3200 МГц и низкие тайминги CL16 обеспечивают отличную скорость работы системы.</p><p>Комплект из двух модулей по 8 ГБ позволяет использовать двухканальный режим, что дает прирост производительности до 15% в играх и приложениях. Стильный черный радиатор эффективно отводит тепло даже при разгоне.</p><p>Поддержка Intel XMP позволяет одним кликом настроить оптимальные параметры памяти в BIOS. Пожизненная гарантия от Kingston гарантирует надежность и долговечность.</p>"
+      },
+      4: {
+        id: 4,
+        name: "Corsair Vengeance 32GB",
+        price: 15990,
+        icon: "fa-memory",
+        category: "ram",
+        categoryName: "Оперативная память",
+        specs: ["DDR4", "3600 МГц", "CL18", "32GB", "2x16GB"],
+        fullSpecs: [
+          { label: "Тип памяти", value: "DDR4" },
+          { label: "Объем", value: "32 ГБ (2x16 ГБ)" },
+          { label: "Частота", value: "3600 МГц" },
+          { label: "Тайминги", value: "CL18-22-22" },
+          { label: "Напряжение", value: "1.35 В" },
+          { label: "Радиатор", value: "Алюминиевый" },
+          { label: "Подсветка", value: "Нет" },
+          { label: "Профили XMP", value: "Да" }
+        ],
+        description: "Corsair Vengeance LPX 32GB — высокопроизводительный комплект памяти для мощных систем. Частота 3600 МГц и низкий профиль радиаторов позволяют использовать память с крупными кулерами процессора.",
+        fullDescription: "<p>Corsair Vengeance LPX — это выбор профессионалов. 32 ГБ оперативной памяти с частотой 3600 МГц обеспечивают плавную работу в самых требовательных приложениях: видеомонтаж, 3D-рендеринг, виртуализация и современные игры.</p><p>Низкий профиль радиаторов (всего 31 мм) позволяет устанавливать память под крупными башенными кулерами. Алюминиевый радиатор эффективно отводит тепло, обеспечивая стабильную работу даже при длительных нагрузках.</p><p>Поддержка Intel XMP 2.0 позволяет легко настроить память на максимальную частоту. Комплект прошел тщательное тестирование на совместимость с материнскими платами.</p>"
+      },
+      5: {
+        id: 5,
+        name: "Samsung 980 1TB",
+        price: 7990,
+        icon: "fa-hard-drive",
+        category: "storage",
+        categoryName: "SSD накопители",
+        specs: ["NVMe", "3500 МБ/с", "M.2", "1TB", "PCIe 3.0"],
+        fullSpecs: [
+          { label: "Тип", value: "SSD M.2 NVMe" },
+          { label: "Объем", value: "1 ТБ" },
+          { label: "Скорость чтения", value: "3500 МБ/с" },
+          { label: "Скорость записи", value: "3000 МБ/с" },
+          { label: "Интерфейс", value: "PCIe 3.0 x4" },
+          { label: "Контроллер", value: "Samsung Pablo" },
+          { label: "Ресурс", value: "600 TBW" },
+          { label: "Гарантия", value: "5 лет" }
+        ],
+        description: "Samsung 980 1TB — высокоскоростной NVMe SSD для игр и работы. Скорость чтения до 3500 МБ/с позволяет мгновенно загружать игры и приложения. Надежный контроллер Samsung обеспечивает стабильную работу.",
+        fullDescription: "<p>Samsung 980 — это SSD нового поколения, который выводит производительность системы на новый уровень. Скорость последовательного чтения до 3500 МБ/с позволяет загружать Windows за секунды, а игры — мгновенно.</p><p>В отличие от предыдущих моделей, SSD 980 использует собственный контроллер Samsung Pablo и память V-NAND 6-го поколения. Это обеспечивает отличную производительность при работе с большими файлами и в играх.</p><p>Технология Dynamic Thermal Guard предотвращает перегрев, а ресурс в 600 ТБ гарантирует долговечность. Полная совместимость с Windows и macOS делает этот SSD универсальным решением.</p>"
+      },
+      6: {
+        id: 6,
+        name: "WD Blue 2TB HDD",
+        price: 6590,
+        icon: "fa-hard-drive",
+        category: "storage",
+        categoryName: "HDD накопители",
+        specs: ["7200 об/мин", "256MB кэш", "SATA 6Gb/s", "2TB"],
+        fullSpecs: [
+          { label: "Тип", value: "HDD" },
+          { label: "Объем", value: "2 ТБ" },
+          { label: "Скорость вращения", value: "7200 об/мин" },
+          { label: "Кэш-память", value: "256 МБ" },
+          { label: "Интерфейс", value: "SATA 6 Гбит/с" },
+          { label: "Форм-фактор", value: "3.5\" дюйма" },
+          { label: "Скорость передачи", value: "до 210 МБ/с" },
+          { label: "Надежность", value: "2 млн часов MTBF" }
+        ],
+        description: "WD Blue 2TB — надежный жесткий диск для хранения данных. Скорость вращения 7200 об/мин и кэш 256 МБ обеспечивают быстрый доступ к файлам. Идеально подходит для хранения игр, фильмов и документов.",
+        fullDescription: "<p>WD Blue 2TB — это надежное решение для хранения больших объемов данных. Скорость вращения 7200 об/мин и кэш-память 256 МБ обеспечивают хорошую производительность при работе с файлами.</p><p>Диск идеально подходит для хранения игровой библиотеки, фильмов, фотоархива и резервных копий. Технология NoTouch Ramp Loading защищает поверхность пластин от повреждений, а низкое энергопотребление делает диск экономичным.</p><p>Надежность подтверждена 2 миллионами часов наработки на отказ. Гарантия производителя составляет 2 года.</p>"
+      },
+      7: {
+        id: 7,
+        name: "RTX 3060 12GB",
+        price: 54990,
+        icon: "fa-tv",
+        category: "gpu",
+        categoryName: "Видеокарты",
+        specs: ["12GB GDDR6", "3584 CUDA", "Ray Tracing", "DLSS"],
+        fullSpecs: [
+          { label: "Чипсет", value: "NVIDIA GeForce RTX 3060" },
+          { label: "Объем памяти", value: "12 ГБ GDDR6" },
+          { label: "Ширина шины", value: "192 бит" },
+          { label: "CUDA ядра", value: "3584" },
+          { label: "Частота ядра", value: "1320 МГц (Boost: 1777 МГц)" },
+          { label: "Поддержка Ray Tracing", value: "Да" },
+          { label: "Поддержка DLSS", value: "Да" },
+          { label: "Рекомендуемый БП", value: "550 Вт" }
+        ],
+        description: "RTX 3060 12GB — видеокарта для игр в 1080p и 1440p. Архитектура Ampere, 12 ГБ видеопамяти и поддержка трассировки лучей обеспечивают отличную графику в современных играх.",
+        fullDescription: "<p>NVIDIA GeForce RTX 3060 — это видеокарта, которая открывает мир трассировки лучей и DLSS для широкой аудитории. 12 ГБ видеопамяти позволяют играть в самые требовательные игры на высоких настройках.</p><p>Архитектура Ampere обеспечивает до 2 раз более высокую производительность в трассировке лучей по сравнению с предыдущим поколением. Технология DLSS повышает частоту кадров без потери качества изображения.</p><p>Видеокарта идеально подходит для игр в разрешении 1080p и 1440p. Поддерживает все современные технологии: DirectX 12 Ultimate, NVIDIA Reflex, NVIDIA Broadcast.</p>"
+      },
+      8: {
+        id: 8,
+        name: "RTX 4070 12GB",
+        price: 89990,
+        icon: "fa-tv",
+        category: "gpu",
+        categoryName: "Видеокарты",
+        specs: ["12GB GDDR6X", "5888 CUDA", "DLSS 3", "Ray Tracing"],
+        fullSpecs: [
+          { label: "Чипсет", value: "NVIDIA GeForce RTX 4070" },
+          { label: "Объем памяти", value: "12 ГБ GDDR6X" },
+          { label: "Ширина шины", value: "192 бит" },
+          { label: "CUDA ядра", value: "5888" },
+          { label: "Частота ядра", value: "1920 МГц (Boost: 2475 МГц)" },
+          { label: "Поддержка DLSS 3", value: "Да" },
+          { label: "Поддержка Ray Tracing", value: "Да" },
+          { label: "Рекомендуемый БП", value: "650 Вт" }
+        ],
+        description: "RTX 4070 12GB — видеокарта для 1440p гейминга. Архитектура Ada Lovelace, DLSS 3 и 12 ГБ GDDR6X памяти обеспечивают максимальную производительность в современных играх.",
+        fullDescription: "<p>NVIDIA GeForce RTX 4070 на архитектуре Ada Lovelace — это видеокарта для требовательных геймеров. DLSS 3 генерирует дополнительные кадры, повышая производительность до 4 раз по сравнению с предыдущим поколением.</p><p>12 ГБ видеопамяти GDDR6X и 5888 ядер CUDA обеспечивают плавный геймплей в 1440p на максимальных настройках. Трассировка лучей нового поколения создает невероятно реалистичное освещение и тени.</p><p>Видеокарта поддерживает NVIDIA Reflex для снижения задержки ввода, а также NVIDIA Broadcast для улучшения качества стримов и видеозвонков.</p>"
+      },
+      9: {
+        id: 9,
+        name: "Corsair 650W",
+        price: 6590,
+        icon: "fa-power-off",
+        category: "psu",
+        categoryName: "Блоки питания",
+        specs: ["80+ Bronze", "Модульный", "650W"],
+        fullSpecs: [
+          { label: "Мощность", value: "650 Вт" },
+          { label: "Сертификация", value: "80+ Bronze" },
+          { label: "Тип", value: "Модульный" },
+          { label: "Вентилятор", value: "120 мм" },
+          { label: "Защита", value: "OCP, OVP, UVP, SCP, OPP" },
+          { label: "Коннекторы PCIe", value: "2 x 6+2 pin" },
+          { label: "Гарантия", value: "3 года" }
+        ],
+        description: "Corsair 650W — надежный блок питания для игровых систем. Сертификат 80+ Bronze гарантирует высокую эффективность, а модульная конструкция облегчает сборку ПК.",
+        fullDescription: "<p>Corsair CX650F RGB — это современный блок питания с модульной системой кабелей. Сертификат 80+ Bronze означает КПД до 85%, что снижает энергопотребление и нагрев.</p><p>120-мм вентилятор с RGB-подсветкой обеспечивает эффективное охлаждение при низком уровне шума. Полная защита от короткого замыкания, перегрузки и перенапряжения гарантирует безопасность компонентов.</p><p>Модульные кабели позволяют использовать только необходимые провода, что облегчает укладку внутри корпуса и улучшает циркуляцию воздуха.</p>"
+      },
+      10: {
+        id: 10,
+        name: "be quiet! 850W",
+        price: 12990,
+        icon: "fa-power-off",
+        category: "psu",
+        categoryName: "Блоки питания",
+        specs: ["80+ Gold", "Полностью модульный", "850W", "Тихий"],
+        fullSpecs: [
+          { label: "Мощность", value: "850 Вт" },
+          { label: "Сертификация", value: "80+ Gold" },
+          { label: "Тип", value: "Полностью модульный" },
+          { label: "Вентилятор", value: "135 мм Silent Wings" },
+          { label: "Защита", value: "OCP, OVP, UVP, SCP, OPP" },
+          { label: "Коннекторы PCIe", value: "4 x 6+2 pin" },
+          { label: "Гарантия", value: "5 лет" }
+        ],
+        description: "be quiet! 850W — топовый блок питания для мощных систем. Сертификат 80+ Gold, полностью модульная конструкция и тихий вентилятор Silent Wings.",
+        fullDescription: "<p>be quiet! Straight Power 11 — это эталон тишины и эффективности. Сертификат 80+ Gold гарантирует КПД до 93%, а вентилятор Silent Wings 135 мм обеспечивает охлаждение при минимальном уровне шума.</p><p>Полностью модульная система кабелей позволяет использовать только необходимые провода, а плоские кабели облегчают прокладку внутри корпуса. Мощности 850 Вт хватит для самых требовательных систем.</p><p>5 лет гарантии и немецкое качество сборки делают этот блок питания отличным выбором для премиальных сборок.</p>"
+      },
+      11: {
+        id: 11,
+        name: "Deepcool AK620",
+        price: 5990,
+        icon: "fa-fan",
+        category: "cooling",
+        categoryName: "Охлаждение",
+        specs: ["260W TDP", "2x120mm", "Воздушное", "6 теплотрубок"],
+        fullSpecs: [
+          { label: "Тип", value: "Башенный кулер" },
+          { label: "TDP", value: "260 Вт" },
+          { label: "Вентиляторы", value: "2 x 120 мм" },
+          { label: "Теплотрубки", value: "6 шт" },
+          { label: "Основание", value: "Никелированная медь" },
+          { label: "Совместимость", value: "Intel LGA1700/1200/115x, AMD AM5/AM4" },
+          { label: "Уровень шума", value: "до 28 дБ" }
+        ],
+        description: "Deepcool AK620 — мощный воздушный кулер для процессоров. TDP 260 Вт позволяет охлаждать даже топовые процессоры. Два вентилятора 120 мм обеспечивают эффективный отвод тепла.",
+        fullDescription: "<p>Deepcool AK620 — это один из лучших воздушных кулеров на рынке. Шесть теплотрубок и два вентилятора 120 мм обеспечивают охлаждение процессоров с TDP до 260 Вт.</p><p>Никелированное медное основание обеспечивает идеальное прилегание к процессору. Вентиляторы имеют гидродинамические подшипники, которые гарантируют тихую работу и долговечность.</p><p>Кулер совместим со всеми современными сокетами Intel и AMD. Стильный черный дизайн с алюминиевой крышкой дополнит любой интерьер.</p>"
+      },
+      12: {
+        id: 12,
+        name: "NZXT Kraken 240",
+        price: 14990,
+        icon: "fa-fan",
+        category: "cooling",
+        categoryName: "Охлаждение",
+        specs: ["240mm", "RGB", "СЖО", "ЖК-дисплей"],
+        fullSpecs: [
+          { label: "Тип", value: "СЖО" },
+          { label: "Размер радиатора", value: "240 мм" },
+          { label: "Вентиляторы", value: "2 x 120 мм RGB" },
+          { label: "Помпа", value: "Керамический подшипник" },
+          { label: "Дисплей", value: "1.54\" LCD" },
+          { label: "Совместимость", value: "Intel LGA1700/1200, AMD AM5/AM4" },
+          { label: "Управление", value: "NZXT CAM" }
+        ],
+        description: "NZXT Kraken 240 — жидкостное охлаждение с ЖК-дисплеем. Радиатор 240 мм эффективно охлаждает процессор, а RGB-подсветка создает уникальный стиль.",
+        fullDescription: "<p>NZXT Kraken 240 — это система жидкостного охлаждения нового поколения. ЖК-дисплей 1.54 дюйма позволяет отображать температуру процессора, загрузку или любую пользовательскую анимацию.</p><p>Радиатор 240 мм и два вентилятора RGB обеспечивают эффективное охлаждение процессоров с TDP до 300 Вт. Керамическая помпа работает тихо и надежно.</p><p>Управление через программное обеспечение NZXT CAM позволяет настраивать подсветку, дисплей и профили работы вентиляторов. Поддержка всех современных сокетов делает кулер универсальным выбором.</p>"
+      }
+    };
+
+    
+    function getProductId() {
+      const params = new URLSearchParams(window.location.search);
+      return parseInt(params.get('id'));
+    }
+
+    let currentProduct = null;
+    let currentQuantity = 1;
+
+    
+    function loadProduct() {
+      const id = getProductId();
+      currentProduct = products[id];
+      
+      if (!currentProduct) {
+        window.location.href = 'catalog.html';
+        return;
+      }
+
+      
+      document.getElementById('breadcrumbCategory').textContent = currentProduct.categoryName;
+      document.getElementById('breadcrumbName').textContent = currentProduct.name;
+
+      
+      document.getElementById('productName').textContent = currentProduct.name;
+      document.getElementById('productPrice').textContent = currentProduct.price.toLocaleString() + ' ₽';
+      document.getElementById('productIcon').className = `fas ${currentProduct.icon}`;
+      
+      
+      const specsGrid = document.getElementById('productSpecs');
+      specsGrid.innerHTML = currentProduct.specs.map(spec => 
+        `<div class="spec-item"><span class="spec-label">${spec.split(' ')[0]}</span><span class="spec-value">${spec}</span></div>`
+      ).join('');
+      
+      
+      document.getElementById('productDescription').innerHTML = `<p>${currentProduct.description}</p>`;
+      document.getElementById('fullDescription').innerHTML = currentProduct.fullDescription;
+      
+      
+      const fullSpecs = document.getElementById('fullSpecs');
+      fullSpecs.innerHTML = currentProduct.fullSpecs.map(spec => 
+        `<div class="spec-item"><span class="spec-label">${spec.label}</span><span class="spec-value">${spec.value}</span></div>`
+      ).join('');
+      
+      
+      loadReviews();
+      
+      
+      loadRelatedProducts();
+      
+      
+      updateWishlistButton();
+    }
+
+    
+    function loadReviews() {
+      const reviews = JSON.parse(localStorage.getItem('reviews')) || {};
+      const productReviews = reviews[currentProduct?.id] || [];
+      
+      document.getElementById('reviewsCount').textContent = productReviews.length;
+      
+      const reviewsList = document.getElementById('reviewsList');
+      if (productReviews.length === 0) {
+        reviewsList.innerHTML = '<p style="text-align: center; color: var(--text-gray);">Пока нет отзывов. Будьте первым!</p>';
+        return;
+      }
+      
+      reviewsList.innerHTML = productReviews.map(review => `
+        <div class="review-item glass">
+          <div class="review-header">
+            <i class="fas fa-user-circle"></i>
+            <strong>${review.userName}</strong>
+            <div class="review-rating">
+              ${Array(review.rating).fill('<i class="fas fa-star"></i>').join('')}
+              ${Array(5 - review.rating).fill('<i class="far fa-star"></i>').join('')}
+            </div>
+          </div>
+          <p>${review.text}</p>
+          <span class="review-date">${review.date}</span>
+        </div>
+      `).join('');
+    }
+
+    
+    function loadRelatedProducts() {
+      const related = Object.values(products).filter(p => p.category === currentProduct.category && p.id !== currentProduct.id).slice(0, 4);
+      const container = document.getElementById('relatedProducts');
+      
+      if (related.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: var(--text-gray);">Нет похожих товаров</p>';
+        return;
+      }
+      
+      container.innerHTML = related.map(product => `
+        <div class="product-card glass" data-id="${product.id}" onclick="window.location.href='product.html?id=${product.id}'">
+          <div class="product-image">
+            <i class="fas ${product.icon}" style="font-size: 3rem; color: var(--neon-cyan);"></i>
+            <div class="product-actions-buttons">
+              <button class="btn-icon wishlist-btn-related" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-icon="${product.icon}"><i class="far fa-heart"></i></button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">${product.name}</h3>
+            <div class="product-price">${product.price.toLocaleString()} ₽</div>
+            <div class="product-specs">
+              ${product.specs.slice(0, 3).map(s => `<span>${s}</span>`).join('')}
+            </div>
+            <button class="btn-small add-to-cart-related" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-icon="${product.icon}">
+              <i class="fas fa-shopping-cart"></i> В корзину
+            </button>
+          </div>
+        </div>
+      `).join('');
+      
+      
+      document.querySelectorAll('.add-to-cart-related').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const id = parseInt(btn.dataset.id);
+          const name = btn.dataset.name;
+          const price = parseInt(btn.dataset.price);
+          const icon = btn.dataset.icon;
+          if (window.addToCart) window.addToCart(id, name, price, icon);
+        };
+      });
+      
+      document.querySelectorAll('.wishlist-btn-related').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const id = parseInt(btn.dataset.id);
+          const name = btn.dataset.name;
+          const price = parseInt(btn.dataset.price);
+          const icon = btn.dataset.icon;
+          if (window.toggleWishlist) window.toggleWishlist(id, name, price, icon);
+        };
+      });
+    }
+
+    
+    function updateWishlistButton() {
+      const btn = document.getElementById('wishlistBtn');
+      if (!btn || !currentProduct) return;
+      
+      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      const isInWishlist = wishlist.some(item => item.id === currentProduct.id);
+      
+      if (isInWishlist) {
+        btn.innerHTML = '<i class="fas fa-heart"></i> В избранном';
+        btn.classList.add('active');
+      } else {
+        btn.innerHTML = '<i class="far fa-heart"></i> В избранное';
+        btn.classList.remove('active');
+      }
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProduct();
+      
+      
+      const quantityInput = document.getElementById('quantityInput');
+      const quantityMinus = document.getElementById('quantityMinus');
+      const quantityPlus = document.getElementById('quantityPlus');
+      
+      quantityMinus.onclick = () => {
+        let val = parseInt(quantityInput.value);
+        if (val > 1) {
+          quantityInput.value = val - 1;
+          currentQuantity = val - 1;
+        }
+      };
+      
+      quantityPlus.onclick = () => {
+        let val = parseInt(quantityInput.value);
+        quantityInput.value = val + 1;
+        currentQuantity = val + 1;
+      };
+      
+      quantityInput.onchange = () => {
+        let val = parseInt(quantityInput.value);
+        if (isNaN(val) || val < 1) val = 1;
+        quantityInput.value = val;
+        currentQuantity = val;
+      };
+      
+      
+      document.getElementById('addToCartBtn').onclick = () => {
+        if (window.addToCart && currentProduct) {
+          window.addToCart(currentProduct.id, currentProduct.name, currentProduct.price, currentProduct.icon, currentQuantity);
+        }
+      };
+      
+      
+      document.getElementById('wishlistBtn').onclick = () => {
+        if (window.toggleWishlist && currentProduct) {
+          window.toggleWishlist(currentProduct.id, currentProduct.name, currentProduct.price, currentProduct.icon);
+          updateWishlistButton();
+        }
+      };
+      
+      
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabBtns.forEach(btn => {
+        btn.onclick = () => {
+          const tabId = btn.dataset.tab;
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          tabContents.forEach(content => content.classList.remove('active'));
+          document.getElementById(`tab-${tabId}`).classList.add('active');
+        };
+      });
+      
+      
+      const modal = document.getElementById('reviewModal');
+      const writeReviewBtn = document.getElementById('writeReviewBtn');
+      
+      writeReviewBtn.onclick = () => {
+        modal.classList.add('active');
+        document.getElementById('reviewText').value = '';
+        document.querySelectorAll('.star-rating i').forEach(star => star.classList.remove('active'));
+      };
+      
+      modal.querySelector('.close-modal').onclick = () => modal.classList.remove('active');
+      
+      modal.querySelectorAll('.star-rating i').forEach((star, index) => {
+        star.onclick = () => {
+          modal.querySelectorAll('.star-rating i').forEach((s, i) => {
+            if (i <= index) s.classList.add('active');
+            else s.classList.remove('active');
+          });
+        };
+      });
+      
+      document.getElementById('submitReview').onclick = () => {
+        const rating = modal.querySelectorAll('.star-rating i.active').length;
+        const text = document.getElementById('reviewText').value;
+        
+        if (rating === 0) {
+          window.showToast?.('Поставьте оценку');
+          return;
+        }
+        if (!text.trim()) {
+          window.showToast?.('Напишите отзыв');
+          return;
+        }
+        
+        let reviews = JSON.parse(localStorage.getItem('reviews')) || {};
+        if (!reviews[currentProduct.id]) reviews[currentProduct.id] = [];
+        
+        reviews[currentProduct.id].push({
+          id: Date.now(),
+          productName: currentProduct.name,
+          rating: rating,
+          text: text,
+          date: new Date().toLocaleDateString('ru-RU'),
+          userName: JSON.parse(localStorage.getItem('profile'))?.name || 'Александр Петров'
+        });
+        
+        localStorage.setItem('reviews', JSON.stringify(reviews));
+        window.showToast?.('Отзыв добавлен! Спасибо!');
+        modal.classList.remove('active');
+        loadReviews();
+      };
+    });
+  </script>
 </body>
 </html>

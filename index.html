@@ -3,19 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GoydaPK — Главная</title>
+  <title>GoydaPK — Магазин компьютерных комплектующих</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <canvas id="bgCanvas"></canvas>
-  <canvas id="mouseTrail"></canvas>
-  
   <div class="content">
     <header class="page-header">
       <div class="logo-area">
-        <a href="index.html" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
+        <a href="index.html">
           <i class="fas fa-microchip logo-icon"></i>
           <div class="logo-text">Goyda<span>PK</span></div>
         </a>
@@ -40,13 +37,24 @@
     </header>
 
     <main class="container">
-      <section class="hero">
+      <div class="video-banner">
+        <video autoplay muted loop playsinline>
+          <source src="https://cdn.pixabay.com/video/2022/07/07/124437-730452385_large.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+          <h2>Собери ПК своей мечты</h2>
+          <p>Топовые комплектующие по лучшим ценам</p>
+          <a href="catalog.html" class="btn btn-neon" style="margin-top: 1rem;">В каталог →</a>
+        </div>
+      </div>
+
+      <section class="hero glass">
         <div class="hero-content">
-          <h1 class="glitch-text" data-text="Собери мощный ПК">Собери мощный ПК<br>с GoydaPK</h1>
-          <p>Оригинальные комплектующие, гарантия и быстрая доставка по всей России</p>
+          <h1 class="glitch-text">Собери мощный ПК<br>с GoydaPK</h1>
+          <p>Оригинальные комплектующие, гарантия 3 года и быстрая доставка по всей России. Более 5000 довольных клиентов!</p>
           <a href="catalog.html" class="btn btn-neon">
-            <span>Перейти к каталогу →</span>
-            <div class="btn-glitch"></div>
+            <span>Перейти в каталог</span>
+            <i class="fas fa-arrow-right"></i>
           </a>
         </div>
         <div class="hero-3d">
@@ -60,26 +68,33 @@
         <div class="feature-card glass">
           <i class="fas fa-truck-fast"></i>
           <h3>Быстрая доставка</h3>
-          <p>Отправим сегодня</p>
-          <div class="card-glow"></div>
+          <p>По всей России за 2-5 дней</p>
         </div>
         <div class="feature-card glass">
-          <i class="fas fa-shield"></i>
+          <i class="fas fa-shield-alt"></i>
           <h3>Гарантия 3 года</h3>
-          <p>На все товары</p>
-          <div class="card-glow"></div>
+          <p>На все комплектующие</p>
         </div>
         <div class="feature-card glass">
-          <i class="fas fa-rotate-left"></i>
-          <h3>Лёгкий возврат</h3>
-          <p>14 дней на раздумья</p>
-          <div class="card-glow"></div>
+          <i class="fas fa-undo-alt"></i>
+          <h3>Легкий возврат</h3>
+          <p>14 дней на возврат</p>
         </div>
         <div class="feature-card glass">
           <i class="fas fa-headset"></i>
           <h3>Поддержка 24/7</h3>
-          <p>Чат, телефон</p>
-          <div class="card-glow"></div>
+          <p>Всегда на связи</p>
+        </div>
+      </div>
+
+      <div class="search-sort">
+        <div class="search-bar">
+          <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск товаров...">
+          <select id="sortSelect" class="sort-select">
+            <option value="default">Сортировка</option>
+            <option value="price-asc">Цена: по возрастанию</option>
+            <option value="price-desc">Цена: по убыванию</option>
+          </select>
         </div>
       </div>
 
@@ -87,49 +102,109 @@
         <span class="title-gradient">Популярные товары</span>
       </h2>
 
-      <div class="product-grid" id="popular-products">
-        
-      </div>
-
-      <h2 class="section-title">
-        <span class="title-gradient">Почему выбирают нас</span>
-      </h2>
-
-      <div class="advantages-grid">
-        <div class="advantage-card glass">
-          <i class="fas fa-certificate"></i>
-          <h3>Только оригинал</h3>
-          <p>100% оригинальные комплектующие от официальных дистрибьюторов</p>
-        </div>
-        <div class="advantage-card glass">
-          <i class="fas fa-chart-line"></i>
-          <h3>Лучшие цены</h3>
-          <p>Регулярно обновляем цены и предлагаем выгодные акции</p>
-        </div>
-        <div class="advantage-card glass">
-          <i class="fas fa-tools"></i>
-          <h3>Собственный СЦ</h3>
-          <p>Быстрый ремонт и обслуживание в собственном сервисном центре</p>
-        </div>
-        <div class="advantage-card glass">
-          <i class="fas fa-credit-card"></i>
-          <h3>Удобная оплата</h3>
-          <p>Карты, рассрочка, кредит — выбирайте удобный способ</p>
-        </div>
-      </div>
-
-      <div class="trust-block">
-        <div class="partners glass">
-          <i class="fas fa-trophy"></i>
-          <h3>Наши партнёры</h3>
-          <div class="partner-logos">
-            <a href="https://www.nvidia.com/ru-ru/" target="_blank" class="partner-link">NVIDIA</a>
-            <a href="https://www.amd.com/ru" target="_blank" class="partner-link">AMD</a>
-            <a href="https://www.intel.ru" target="_blank" class="partner-link">Intel</a>
-            <a href="https://www.kingston.com/ru" target="_blank" class="partner-link">Kingston</a>
-            <a href="https://www.corsair.com/ru/ru" target="_blank" class="partner-link">Corsair</a>
-            <a href="https://www.samsung.com/ru/" target="_blank" class="partner-link">Samsung</a>
+      <div class="product-grid">
+        <div class="product-card glass" data-price="17490" data-category="cpu" data-id="1">
+          <div class="product-image">
+            <img src="https://via.placeholder.com/300x300?text=Intel+i5" alt="Intel Core i5-13400">
+            <div class="sale-badge">-10%</div>
+            <div class="product-actions-buttons">
+              <button class="btn-icon wishlist-btn" data-id="1" data-name="Intel Core i5-13400" data-price="17490" data-icon="fa-microchip"><i class="far fa-heart"></i></button>
+              <button class="btn-icon review-btn" data-id="1" data-name="Intel Core i5-13400"><i class="far fa-star"></i></button>
+            </div>
           </div>
+          <div class="product-info">
+            <h3 class="product-title">Intel Core i5-13400</h3>
+            <div class="product-price">17 490 ₽</div>
+            <div class="product-specs">
+              <span>10 ядер</span>
+              <span>4.6 ГГц</span>
+              <span>LGA1700</span>
+            </div>
+            <button class="btn-small btn-add-to-cart" data-id="1" data-name="Intel Core i5-13400" data-price="17490" data-icon="fa-microchip">
+              <i class="fas fa-shopping-cart"></i> В корзину
+            </button>
+          </div>
+        </div>
+
+        <div class="product-card glass" data-price="13590" data-category="cpu" data-id="2">
+          <div class="product-image">
+            <img src="https://via.placeholder.com/300x300?text=AMD+Ryzen" alt="AMD Ryzen 5 5600X">
+            <div class="product-actions-buttons">
+              <button class="btn-icon wishlist-btn" data-id="2" data-name="AMD Ryzen 5 5600X" data-price="13590" data-icon="fa-microchip"><i class="far fa-heart"></i></button>
+              <button class="btn-icon review-btn" data-id="2" data-name="AMD Ryzen 5 5600X"><i class="far fa-star"></i></button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">AMD Ryzen 5 5600X</h3>
+            <div class="product-price">13 590 ₽</div>
+            <div class="product-specs">
+              <span>6 ядер</span>
+              <span>4.6 ГГц</span>
+              <span>AM4</span>
+            </div>
+            <button class="btn-small btn-add-to-cart" data-id="2" data-name="AMD Ryzen 5 5600X" data-price="13590" data-icon="fa-microchip">
+              <i class="fas fa-shopping-cart"></i> В корзину
+            </button>
+          </div>
+        </div>
+
+        <div class="product-card glass" data-price="54990" data-category="gpu" data-id="7">
+          <div class="product-image">
+            <img src="https://via.placeholder.com/300x300?text=RTX+3060" alt="RTX 3060">
+            <div class="sale-badge">Акция</div>
+            <div class="product-actions-buttons">
+              <button class="btn-icon wishlist-btn" data-id="7" data-name="RTX 3060 12GB" data-price="54990" data-icon="fa-tv"><i class="far fa-heart"></i></button>
+              <button class="btn-icon review-btn" data-id="7" data-name="RTX 3060 12GB"><i class="far fa-star"></i></button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">RTX 3060 12GB</h3>
+            <div class="product-price">54 990 ₽</div>
+            <div class="product-specs">
+              <span>12GB GDDR6</span>
+              <span>Ray Tracing</span>
+              <span>DLSS</span>
+            </div>
+            <button class="btn-small btn-add-to-cart" data-id="7" data-name="RTX 3060 12GB" data-price="54990" data-icon="fa-tv">
+              <i class="fas fa-shopping-cart"></i> В корзину
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="advantages-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+        <div class="advantage-card glass" style="padding: 1.5rem; text-align: center;">
+          <i class="fas fa-certificate" style="font-size: 2rem; color: var(--neon-cyan);"></i>
+          <h3 style="margin: 0.5rem 0;">Только оригинал</h3>
+          <p style="color: var(--text-gray);">100% оригинальные комплектующие от официальных дистрибьюторов</p>
+        </div>
+        <div class="advantage-card glass" style="padding: 1.5rem; text-align: center;">
+          <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--neon-cyan);"></i>
+          <h3 style="margin: 0.5rem 0;">Лучшие цены</h3>
+          <p style="color: var(--text-gray);">Регулярные акции и скидки до 30%</p>
+        </div>
+        <div class="advantage-card glass" style="padding: 1.5rem; text-align: center;">
+          <i class="fas fa-tools" style="font-size: 2rem; color: var(--neon-cyan);"></i>
+          <h3 style="margin: 0.5rem 0;">Собственный СЦ</h3>
+          <p style="color: var(--text-gray);">Быстрый ремонт и обслуживание</p>
+        </div>
+        <div class="advantage-card glass" style="padding: 1.5rem; text-align: center;">
+          <i class="fas fa-credit-card" style="font-size: 2rem; color: var(--neon-cyan);"></i>
+          <h3 style="margin: 0.5rem 0;">Удобная оплата</h3>
+          <p style="color: var(--text-gray);">Карты, рассрочка 0%, кредит</p>
+        </div>
+      </div>
+
+      <div class="partners glass" style="text-align: center; padding: 2rem; margin: 2rem 0;">
+        <i class="fas fa-trophy" style="font-size: 2rem; color: var(--neon-pink);"></i>
+        <h3 style="margin: 1rem 0;">Наши партнёры</h3>
+        <div class="partner-logos" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+          <a href="#" class="partner-link">NVIDIA</a>
+          <a href="#" class="partner-link">AMD</a>
+          <a href="#" class="partner-link">Intel</a>
+          <a href="#" class="partner-link">Kingston</a>
+          <a href="#" class="partner-link">Corsair</a>
+          <a href="#" class="partner-link">Samsung</a>
         </div>
       </div>
     </main>
@@ -142,6 +217,24 @@
         <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
       </div>
     </footer>
+  </div>
+
+  <div id="reviewModal" class="modal">
+    <div class="modal-content glass">
+      <h3>Написать отзыв</h3>
+      <div class="star-rating">
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <textarea id="reviewText" rows="4" placeholder="Ваш отзыв..."></textarea>
+      <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+        <button class="btn-outline close-modal">Отмена</button>
+        <button class="btn-neon" id="submitReview">Отправить</button>
+      </div>
+    </div>
   </div>
 
   <script src="javascript.js"></script>

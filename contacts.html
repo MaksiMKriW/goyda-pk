@@ -7,15 +7,13 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_ключ&lang=ru_RU"></script>
 </head>
 <body>
-  <canvas id="bgCanvas"></canvas>
-  <canvas id="mouseTrail"></canvas>
-  
   <div class="content">
     <header class="page-header">
       <div class="logo-area">
-        <a href="index.html" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
+        <a href="index.html">
           <i class="fas fa-microchip logo-icon"></i>
           <div class="logo-text">Goyda<span>PK</span></div>
         </a>
@@ -46,12 +44,10 @@
       
       <div class="contacts-grid">
         <div class="contact-info-card glass">
-          <h3>Мы на карте</h3>
-          <div class="map-container">
-            <div id="map" style="height: 300px; width: 100%; border-radius: 20px; overflow: hidden;"></div>
-          </div>
+          <h3 style="margin-bottom: 1.5rem;">Мы на карте</h3>
+          <div id="map" style="height: 300px; width: 100%; border-radius: 20px; overflow: hidden;"></div>
           
-          <div class="contact-details">
+          <div class="contact-details" style="margin-top: 2rem;">
             <div class="detail-item">
               <i class="fas fa-map-marker-alt"></i>
               <div>
@@ -84,46 +80,37 @@
         </div>
 
         <div class="contact-form-card glass">
-          <h3>Напишите нам</h3>
-          <form id="feedbackForm" class="neon-form">
+          <h3 style="margin-bottom: 1.5rem;">Напишите нам</h3>
+          <form id="feedbackForm">
             <div class="form-group">
-              <input type="text" id="name" placeholder=" " required>
-              <label for="name">Ваше имя</label>
-              <div class="error-message" id="nameError"></div>
+              <input type="text" id="name" placeholder=" ">
+              <label for="name">Ваше имя *</label>
             </div>
-            
             <div class="form-group">
-              <input type="email" id="email" placeholder=" " required>
-              <label for="email">Электронная почта</label>
-              <div class="error-message" id="emailError"></div>
+              <input type="email" id="email" placeholder=" ">
+              <label for="email">Электронная почта *</label>
             </div>
-            
             <div class="form-group">
               <input type="tel" id="phone" placeholder=" ">
-              <label for="phone">Телефон (необязательно)</label>
+              <label for="phone">Телефон</label>
             </div>
-            
             <div class="form-group">
-              <textarea id="message" placeholder=" " rows="3" required></textarea>
-              <label for="message">Сообщение</label>
-              <div class="error-message" id="msgError"></div>
+              <textarea id="message" rows="3" placeholder=" "></textarea>
+              <label for="message">Сообщение *</label>
             </div>
-            
-            <div class="form-group checkbox">
-              <input type="checkbox" id="agree" required>
-              <label for="agree">Согласие на обработку данных</label>
+            <div class="form-group checkbox" style="display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="agree" style="width: auto;">
+              <label for="agree" style="position: static;">Согласие на обработку данных *</label>
             </div>
-            
-            <button type="submit" class="btn btn-neon">
-              <span>Отправить</span>
-              <i class="fas fa-paper-plane"></i>
+            <button type="submit" class="btn btn-neon" style="width: 100%;">
+              <i class="fas fa-paper-plane"></i> Отправить
             </button>
           </form>
         </div>
       </div>
 
-      <div class="social-links-section">
-        <h3>Мы в соцсетях</h3>
+      <div class="social-links-section" style="margin-top: 3rem;">
+        <h3 style="text-align: center; margin-bottom: 1.5rem;">Мы в соцсетях</h3>
         <div class="social-grid">
           <a href="#" class="social-card glass">
             <i class="fab fa-vk"></i>
@@ -152,26 +139,5 @@
   </div>
 
   <script src="javascript.js"></script>
-  <script>
-    
-    ymaps.ready(init);
-    function init() {
-      var myMap = new ymaps.Map("map", {
-        center: [56.129, 40.407],
-        zoom: 16,
-        controls: ['zoomControl', 'fullscreenControl']
-      });
-      
-      var myPlacemark = new ymaps.Placemark([56.129, 40.407], {
-        hintContent: 'GoydaPK',
-        balloonContent: '<strong>GoydaPK</strong><br/>г. Владимир, ул. Строителей, д. 22<br/>Телефон: 8 (800) 555-35-35'
-      }, {
-        preset: 'islands#redDotIcon',
-        iconColor: '#ff44cc'
-      });
-      
-      myMap.geoObjects.add(myPlacemark);
-    }
-  </script>
 </body>
 </html>

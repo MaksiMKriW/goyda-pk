@@ -9,13 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <canvas id="bgCanvas"></canvas>
-  <canvas id="mouseTrail"></canvas>
-  
   <div class="content">
     <header class="page-header">
       <div class="logo-area">
-        <a href="index.html" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
+        <a href="index.html">
           <i class="fas fa-microchip logo-icon"></i>
           <div class="logo-text">Goyda<span>PK</span></div>
         </a>
@@ -35,7 +32,7 @@
       </nav>
       <div class="header-icons">
         <a href="profile.html"><i class="fas fa-user"></i></a>
-        <a href="cart.html" class="active"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
       </div>
     </header>
 
@@ -46,19 +43,15 @@
       
       <div class="cart-wrapper glass">
         <div class="cart-header">
-          <div class="cart-header-item">Товар</div>
-          <div class="cart-header-item">Цена</div>
-          <div class="cart-header-item">Количество</div>
-          <div class="cart-header-item">Сумма</div>
-          <div class="cart-header-item"></div>
+          <div>Товар</div>
+          <div>Цена</div>
+          <div>Количество</div>
+          <div>Сумма</div>
+          <div></div>
         </div>
-
-        <div class="cart-items" id="cartItems">
-          
-        </div>
-
+        <div id="cartItems"></div>
         <div class="cart-footer">
-          <div class="cart-summary">
+          <div class="cart-summary glass">
             <div class="summary-row">
               <span>Товаров:</span>
               <span class="summary-value items-count">0</span>
@@ -67,19 +60,12 @@
               <span>Сумма:</span>
               <span class="summary-value cart-subtotal">0 ₽</span>
             </div>
-            <div class="summary-row">
-              <span>Доставка:</span>
-              <span class="summary-value">0 ₽</span>
-            </div>
             <div class="summary-row total">
               <span>Итого:</span>
               <span class="summary-value cart-total">0 ₽</span>
             </div>
+            <button class="btn-checkout-small">Оформить заказ →</button>
           </div>
-          <button class="btn-checkout-small">
-            <span>Оформить заказ</span>
-            <i class="fas fa-arrow-right"></i>
-          </button>
         </div>
       </div>
     </main>

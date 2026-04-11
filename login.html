@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoydaPK — Вход и регистрация</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    .auth-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .auth-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    }
+    .auth-tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      color: var(--text-gray);
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+    }
+    .auth-tab-btn.active {
+      color: var(--neon-cyan);
+    }
+    .auth-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+    .auth-form {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .auth-form.active {
+      display: block;
+    }
+    .auth-form .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .auth-form .btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .auth-divider {
+      text-align: center;
+      margin: 1.5rem 0;
+      color: var(--text-gray);
+      position: relative;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: calc(50% - 60px);
+      height: 1px;
+      background: rgba(0, 255, 255, 0.2);
+    }
+    .auth-divider::before { left: 0; }
+    .auth-divider::after { right: 0; }
+    .social-login {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .social-login-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.7rem;
+      border-radius: 40px;
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .social-login-btn:hover {
+      border-color: var(--neon-cyan);
+      background: rgba(0, 255, 255, 0.1);
+    }
+    .forgot-password {
+      text-align: right;
+      margin-top: 0.5rem;
+    }
+    .forgot-password a {
+      color: var(--text-gray);
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+    .forgot-password a:hover {
+      color: var(--neon-cyan);
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .checkbox-group input {
+      width: auto;
+    }
+    .checkbox-group label {
+      position: static;
+      color: var(--text-gray);
+      font-size: 0.8rem;
+    }
+    .checkbox-group a {
+      color: var(--neon-cyan);
+      text-decoration: none;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <header class="page-header">
+      <div class="logo-area">
+        <a href="index.html">
+          <i class="fas fa-microchip logo-icon"></i>
+          <div class="logo-text">Goyda<span>PK</span></div>
+        </a>
+      </div>
+      <div class="contact-info">
+        <span><i class="fas fa-phone-alt"></i> 8 (800) 555-35-35</span>
+        <span><i class="fas fa-envelope"></i> info@goyda.pk</span>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="catalog.html">Каталог</a></li>
+          <li><a href="about.html">О нас</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+          <li><a href="profile.html">Профиль</a></li>
+        </ul>
+      </nav>
+      <div class="header-icons">
+        <a href="profile.html"><i class="fas fa-user"></i></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="auth-container">
+        <div class="glass" style="padding: 2rem; border-radius: 32px;">
+          <div class="auth-tabs">
+            <button class="auth-tab-btn active" data-tab="login">🔐 Вход</button>
+            <button class="auth-tab-btn" data-tab="register">📝 Регистрация</button>
+          </div>
+
+          
+          <form id="loginForm" class="auth-form active">
+            <div class="form-group">
+              <input type="email" id="loginEmail" placeholder=" " required>
+              <label for="loginEmail">Электронная почта</label>
+            </div>
+            <div class="form-group">
+              <input type="password" id="loginPassword" placeholder=" " required>
+              <label for="loginPassword">Пароль</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="rememberMe">
+              <label for="rememberMe">Запомнить меня</label>
+            </div>
+            <button type="submit" class="btn btn-neon">
+              <i class="fas fa-arrow-right-to-bracket"></i> Войти
+            </button>
+            <div class="forgot-password">
+              <a href="#">Забыли пароль?</a>
+            </div>
+          </form>
+
+          
+          <form id="registerForm" class="auth-form">
+            <div class="form-row">
+              <div class="form-group">
+                <input type="text" id="regFirstName" placeholder=" " required>
+                <label for="regFirstName">Имя</label>
+              </div>
+              <div class="form-group">
+                <input type="text" id="regLastName" placeholder=" ">
+                <label for="regLastName">Фамилия</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="email" id="regEmail" placeholder=" " required>
+              <label for="regEmail">Электронная почта</label>
+            </div>
+            <div class="form-group">
+              <input type="tel" id="regPhone" placeholder=" ">
+              <label for="regPhone">Телефон</label>
+            </div>
+            <div class="form-group">
+              <input type="password" id="regPassword" placeholder=" " required>
+              <label for="regPassword">Пароль</label>
+            </div>
+            <div class="form-group">
+              <input type="password" id="regConfirmPassword" placeholder=" " required>
+              <label for="regConfirmPassword">Подтвердите пароль</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="agreeTerms" required>
+              <label for="agreeTerms">Я согласен с <a href="#">условиями использования</a> и <a href="#">политикой конфиденциальности</a></label>
+            </div>
+            <button type="submit" class="btn btn-neon">
+              <i class="fas fa-user-plus"></i> Зарегистрироваться
+            </button>
+          </form>
+
+          <div class="auth-divider">или</div>
+
+          <div class="social-login">
+            <a href="#" class="social-login-btn">
+              <i class="fab fa-google"></i> Google
+            </a>
+            <a href="#" class="social-login-btn">
+              <i class="fab fa-vk"></i> VK
+            </a>
+            <a href="#" class="social-login-btn">
+              <i class="fab fa-telegram"></i> TG
+            </a>
+          </div>
+
+          <div class="auth-info" style="text-align: center; margin-top: 1.5rem; color: var(--text-gray); font-size: 0.8rem;">
+            <i class="fas fa-shield-alt"></i> Ваши данные защищены
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="page-footer">
+      <div class="footer-copy">© 2026 GoydaPK | Криворотов М.В, Мартиросов В.В</div>
+      <div class="footer-social">
+        <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="javascript.js"></script>
+  <script>
+    function showAuthToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    
+    document.querySelectorAll('.auth-tab-btn').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.auth-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+        document.getElementById(`${btn.dataset.tab}Form`).classList.add('active');
+      };
+    });
+
+    
+    document.getElementById('loginForm').onsubmit = (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      
+      if (!email || !password) {
+        showAuthToast('Заполните все поля');
+        return;
+      }
+      
+      
+      if (!email.includes('@')) {
+        showAuthToast('Введите корректный email');
+        return;
+      }
+      
+      
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userEmail', email);
+      
+      
+      const registeredUser = localStorage.getItem('registeredUser');
+      if (registeredUser) {
+        const user = JSON.parse(registeredUser);
+        if (user.email === email) {
+          localStorage.setItem('profile', JSON.stringify({
+            name: `${user.firstName} ${user.lastName || ''}`.trim(),
+            email: user.email,
+            phone: user.phone || ''
+          }));
+        }
+      }
+      
+      showAuthToast('Добро пожаловать!');
+      setTimeout(() => {
+        window.location.href = 'profile.html';
+      }, 1000);
+    };
+
+    
+    document.getElementById('registerForm').onsubmit = (e) => {
+      e.preventDefault();
+      const firstName = document.getElementById('regFirstName').value;
+      const lastName = document.getElementById('regLastName').value;
+      const email = document.getElementById('regEmail').value;
+      const phone = document.getElementById('regPhone').value;
+      const password = document.getElementById('regPassword').value;
+      const confirmPassword = document.getElementById('regConfirmPassword').value;
+      const agreeTerms = document.getElementById('agreeTerms').checked;
+      
+      if (!firstName || !email || !password) {
+        showAuthToast('Заполните обязательные поля');
+        return;
+      }
+      
+      if (!email.includes('@')) {
+        showAuthToast('Введите корректный email');
+        return;
+      }
+      
+      if (password.length < 6) {
+        showAuthToast('Пароль должен содержать минимум 6 символов');
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        showAuthToast('Пароли не совпадают');
+        return;
+      }
+      
+      if (!agreeTerms) {
+        showAuthToast('Подтвердите согласие с условиями');
+        return;
+      }
+      
+      
+      const userData = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        password: password
+      };
+      localStorage.setItem('registeredUser', JSON.stringify(userData));
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userEmail', email);
+      
+      // Сохраняем профиль
+      localStorage.setItem('profile', JSON.stringify({
+        name: `${firstName} ${lastName || ''}`.trim(),
+        email: email,
+        phone: phone || ''
+      }));
+      
+      showAuthToast('Регистрация прошла успешно!');
+      setTimeout(() => {
+        window.location.href = 'profile.html';
+      }, 1000);
+    };
+
+    
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      const redirectTo = new URLSearchParams(window.location.search).get('redirect') || 'profile.html';
+      setTimeout(() => {
+        window.location.href = redirectTo;
+      }, 500);
+    }
+  </script>
+</body>
+</html>

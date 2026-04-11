@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoydaPK — Видеокарты</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="content">
+    <header class="page-header">
+      <div class="logo-area">
+        <a href="index.html">
+          <i class="fas fa-microchip logo-icon"></i>
+          <div class="logo-text">Goyda<span>PK</span></div>
+        </a>
+      </div>
+      <div class="contact-info">
+        <span><i class="fas fa-phone-alt"></i> 8 (800) 555-35-35</span>
+        <span><i class="fas fa-envelope"></i> info@goyda.pk</span>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="catalog.html">Каталог</a></li>
+          <li><a href="about.html">О нас</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+          <li><a href="profile.html">Профиль</a></li>
+        </ul>
+      </nav>
+      <div class="header-icons">
+        <a href="login.html"><i class="fas fa-user"></i></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
+      </div>
+    </header>
+
+    <main class="container">
+      <nav class="breadcrumbs">
+        <a href="index.html">Главная</a> /
+        <a href="catalog.html">Каталог</a> /
+        <span>Видеокарты</span>
+      </nav>
+
+      <h1 class="section-title">
+        <span class="title-gradient">Видеокарты</span>
+      </h1>
+
+      <div class="category-description glass" style="padding: 1.5rem; margin-bottom: 2rem;">
+        <p style="color: var(--text-gray);">🎮 Топовые видеокарты для игр. Трассировка лучей, DLSS, высокий FPS.</p>
+      </div>
+
+      <div class="search-sort">
+        <div class="search-bar">
+          <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск видеокарт...">
+          <select id="sortSelect" class="sort-select">
+            <option value="default">Сортировка</option>
+            <option value="price-asc">Цена: по возрастанию</option>
+            <option value="price-desc">Цена: по убыванию</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="product-grid" id="productsGrid">
+        <!-- RTX 3060 12GB -->
+        <div class="product-card glass" data-price="54990" data-id="7">
+          <div class="product-image">
+            <img src="images/RTX 3060 12GB (1).png" alt="RTX 3060">
+            <div class="sale-badge">Акция</div>
+            <div class="product-actions-buttons">
+              <button class="btn-icon wishlist-btn" data-id="7" data-name="RTX 3060 12GB" data-price="54990" data-icon="fa-tv"><i class="far fa-heart"></i></button>
+              <button class="btn-icon review-btn" data-id="7" data-name="RTX 3060 12GB"><i class="far fa-star"></i></button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">RTX 3060 12GB</h3>
+            <div class="product-price">54 990 ₽</div>
+            <div class="product-specs"><span>12GB GDDR6</span><span>3584 CUDA</span><span>Ray Tracing</span></div>
+            <button class="btn-small btn-add-to-cart" data-id="7" data-name="RTX 3060 12GB" data-price="54990" data-icon="fa-tv"><i class="fas fa-shopping-cart"></i> В корзину</button>
+          </div>
+        </div>
+
+        <!-- RTX 4070 12GB -->
+        <div class="product-card glass" data-price="89990" data-id="8">
+          <div class="product-image">
+            <img src="images/RTX 4070 12GB (1).png" alt="RTX 4070">
+            <div class="product-actions-buttons">
+              <button class="btn-icon wishlist-btn" data-id="8" data-name="RTX 4070 12GB" data-price="89990" data-icon="fa-tv"><i class="far fa-heart"></i></button>
+              <button class="btn-icon review-btn" data-id="8" data-name="RTX 4070 12GB"><i class="far fa-star"></i></button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">RTX 4070 12GB</h3>
+            <div class="product-price">89 990 ₽</div>
+            <div class="product-specs"><span>12GB GDDR6X</span><span>5888 CUDA</span><span>DLSS 3</span></div>
+            <button class="btn-small btn-add-to-cart" data-id="8" data-name="RTX 4070 12GB" data-price="89990" data-icon="fa-tv"><i class="fas fa-shopping-cart"></i> В корзину</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="page-footer">
+      <div class="footer-copy">© 2026 GoydaPK | Криворотов М.В, Мартиросов В.В</div>
+      <div class="footer-social">
+        <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="reviewModal" class="modal">
+    <div class="modal-content glass">
+      <h3>Написать отзыв</h3>
+      <div class="star-rating">
+        <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+      </div>
+      <textarea id="reviewText" rows="4" placeholder="Ваш отзыв..."></textarea>
+      <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+        <button class="btn-outline close-modal">Отмена</button>
+        <button class="btn-neon" id="submitReview">Отправить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="javascript.js"></script>
+  <script>
+    function initSearch() {
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) searchInput.oninput = () => {
+        const query = searchInput.value.toLowerCase();
+        document.querySelectorAll('.product-card').forEach(product => {
+          const title = product.querySelector('.product-title')?.textContent.toLowerCase() || '';
+          product.style.display = title.includes(query) ? 'block' : 'none';
+        });
+      };
+    }
+
+    function initSort() {
+      const sortSelect = document.getElementById('sortSelect');
+      if (sortSelect) sortSelect.onchange = () => {
+        const products = Array.from(document.querySelectorAll('.product-card'));
+        const grid = document.getElementById('productsGrid');
+        products.sort((a, b) => {
+          const priceA = parseInt(a.dataset.price);
+          const priceB = parseInt(b.dataset.price);
+          if (sortSelect.value === 'price-asc') return priceA - priceB;
+          if (sortSelect.value === 'price-desc') return priceB - priceA;
+          return 0;
+        });
+        products.forEach(p => grid.appendChild(p));
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initSearch();
+      initSort();
+      if (typeof initProductButtons === 'function') initProductButtons();
+      if (typeof updateCartBadge === 'function') updateCartBadge();
+      if (typeof updateWishlistButtons === 'function') updateWishlistButtons();
+    });
+  </script>
+</body>
+</html>

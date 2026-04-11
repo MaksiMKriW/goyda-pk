@@ -7,6 +7,25 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    /* Стили для баннера с изображением */
+    .image-banner {
+      position: relative;
+      border-radius: 32px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+    }
+    .image-banner img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      object-position: center;
+    }
+    @media (max-width: 768px) {
+      .image-banner img { height: 250px; }
+    }
+  </style>
 </head>
 <body>
   <div class="content">
@@ -31,23 +50,18 @@
         </ul>
       </nav>
       <div class="header-icons">
-        <a href="profile.html"><i class="fas fa-user"></i></a>
+        <a href="login.html"><i class="fas fa-user"></i></a>
         <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
       </div>
     </header>
 
     <main class="container">
-      <div class="video-banner">
-        <video autoplay muted loop playsinline>
-          <source src="https://cdn.pixabay.com/video/2022/07/07/124437-730452385_large.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <h2>Собери ПК своей мечты</h2>
-          <p>Топовые комплектующие по лучшим ценам</p>
-          <a href="catalog.html" class="btn btn-neon" style="margin-top: 1rem;">В каталог →</a>
-        </div>
+      <!-- Верхний баннер с изображением (без текста) -->
+      <div class="image-banner">
+        <img src="images/complect.jpg" alt="Компьютерные комплектующие">
       </div>
 
+      <!-- Нижний hero блок с текстом (оставляем как есть) -->
       <section class="hero glass">
         <div class="hero-content">
           <h1 class="glitch-text">Собери мощный ПК<br>с GoydaPK</h1>

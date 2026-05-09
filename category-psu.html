@@ -31,7 +31,7 @@
         </ul>
       </nav>
       <div class="header-icons">
-        <a href="login.html"><i class="fas fa-user"></i></a>
+        <div class="user-menu-area"></div>
         <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
       </div>
     </header>
@@ -52,7 +52,7 @@
       </div>
 
       <div class="search-sort">
-        <div class="search-bar">
+        <div class="search-bar" style="position: relative;">
           <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск блоков питания...">
           <select id="sortSelect" class="sort-select">
             <option value="default">Сортировка</option>
@@ -62,11 +62,18 @@
         </div>
       </div>
 
+      <div class="filter-bar glass">
+        <span class="filter-label">Фильтр по цене:</span>
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="under150">до 15 000 ₽</button>
+        <button class="filter-btn" data-filter="above150">от 15 000 ₽</button>
+      </div>
+
       <div class="product-grid" id="productsGrid">
-        <!-- Corsair 650W -->
+        
         <div class="product-card glass" data-price="6590" data-id="9">
           <div class="product-image">
-            <img src="images/Corsair 650W (1).png" alt="Corsair 650W">
+            <img src="images/Corsair 650W (1).png" alt="Corsair 650W" onerror="this.src='images/placeholder.png'">
             <div class="product-actions-buttons">
               <button class="btn-icon wishlist-btn" data-id="9" data-name="Corsair 650W" data-price="6590" data-icon="fa-power-off"><i class="far fa-heart"></i></button>
               <button class="btn-icon review-btn" data-id="9" data-name="Corsair 650W"><i class="far fa-star"></i></button>
@@ -80,10 +87,10 @@
           </div>
         </div>
 
-        <!-- be quiet! 850W -->
+        
         <div class="product-card glass" data-price="12990" data-id="10">
           <div class="product-image">
-            <img src="images/be quiet! 850W (1).png" alt="be quiet! 850W">
+            <img src="images/be quiet! 850W (1).png" alt="be quiet! 850W" onerror="this.src='images/placeholder.png'">
             <div class="product-actions-buttons">
               <button class="btn-icon wishlist-btn" data-id="10" data-name="be quiet! 850W" data-price="12990" data-icon="fa-power-off"><i class="far fa-heart"></i></button>
               <button class="btn-icon review-btn" data-id="10" data-name="be quiet! 850W"><i class="far fa-star"></i></button>
@@ -125,36 +132,10 @@
 
   <script src="javascript.js"></script>
   <script>
-    function initSearch() {
-      const searchInput = document.getElementById('searchInput');
-      if (searchInput) searchInput.oninput = () => {
-        const query = searchInput.value.toLowerCase();
-        document.querySelectorAll('.product-card').forEach(product => {
-          const title = product.querySelector('.product-title')?.textContent.toLowerCase() || '';
-          product.style.display = title.includes(query) ? 'block' : 'none';
-        });
-      };
-    }
-
-    function initSort() {
-      const sortSelect = document.getElementById('sortSelect');
-      if (sortSelect) sortSelect.onchange = () => {
-        const products = Array.from(document.querySelectorAll('.product-card'));
-        const grid = document.getElementById('productsGrid');
-        products.sort((a, b) => {
-          const priceA = parseInt(a.dataset.price);
-          const priceB = parseInt(b.dataset.price);
-          if (sortSelect.value === 'price-asc') return priceA - priceB;
-          if (sortSelect.value === 'price-desc') return priceB - priceA;
-          return 0;
-        });
-        products.forEach(p => grid.appendChild(p));
-      };
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
-      initSearch();
-      initSort();
+      if (typeof initUnifiedFilters === 'function') initUnifiedFilters();
+      if (typeof initUnifiedSearch === 'function') initUnifiedSearch();
+      if (typeof initUnifiedSort === 'function') initUnifiedSort();
       if (typeof initProductButtons === 'function') initProductButtons();
       if (typeof updateCartBadge === 'function') updateCartBadge();
       if (typeof updateWishlistButtons === 'function') updateWishlistButtons();

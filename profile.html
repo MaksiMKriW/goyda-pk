@@ -3,10 +3,236 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GoydaPK — Профиль</title>
+  <title>GoydaPK — Личный кабинет</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    
+    .profile-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .profile-sidebar {
+      background: rgba(15, 25, 35, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      padding: 2rem;
+      text-align: center;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1rem;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .profile-avatar i {
+      font-size: 3.5rem;
+      color: #000;
+    }
+    
+    .profile-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .profile-email {
+      color: var(--text-gray);
+      font-size: 0.85rem;
+      word-break: break-all;
+    }
+    
+    .profile-nav {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .profile-nav-btn {
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 14px;
+      padding: 0.8rem 1rem;
+      color: var(--text-white);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+      width: 100%;
+      text-align: left;
+    }
+    
+    .profile-nav-btn i {
+      width: 24px;
+    }
+    
+    .profile-nav-btn:hover {
+      background: rgba(0, 255, 255, 0.15);
+      transform: translateX(5px);
+      border-color: var(--neon-cyan);
+    }
+    
+    .profile-nav-btn.active {
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+      color: #000;
+    }
+    
+    .profile-content {
+      background: rgba(10, 20, 35, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      padding: 2rem;
+    }
+    
+    
+    .profile-form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .profile-form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--neon-cyan);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    
+    .profile-form-group input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 16px;
+      color: white;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .profile-form-group input:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.6);
+    }
+    
+    .profile-form-group input[readonly] {
+      background: rgba(0, 0, 0, 0.2);
+      cursor: not-allowed;
+      opacity: 0.8;
+    }
+    
+    
+    .form-group {
+      position: static !important;
+    }
+    
+    .form-group label {
+      position: static !important;
+      transform: none !important;
+      background: transparent !important;
+    }
+    
+    .btn-neon {
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+      color: #000;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1rem;
+    }
+    
+    .btn-neon:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+    
+    
+    .order-card {
+      background: rgba(0, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(0, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .order-card:hover {
+      border-color: var(--neon-cyan);
+      transform: translateX(5px);
+    }
+    
+    .wishlist-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(0, 255, 255, 0.05);
+      border-radius: 20px;
+      margin-bottom: 0.8rem;
+      border: 1px solid rgba(0, 255, 255, 0.1);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+    }
+    
+    .empty-state i {
+      font-size: 4rem;
+      color: var(--text-gray);
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+    
+    @media (max-width: 768px) {
+      .profile-wrapper {
+        grid-template-columns: 1fr !important;
+      }
+      .profile-sidebar {
+        position: static;
+        margin-bottom: 1.5rem;
+      }
+      .profile-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .profile-nav-btn {
+        width: auto;
+        font-size: 0.8rem;
+        padding: 0.5rem 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="content">
@@ -31,102 +257,13 @@
         </ul>
       </nav>
       <div class="header-icons">
-        <a href="login.html"><i class="fas fa-user"></i></a>
+        <div class="user-menu-area"></div>
         <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
       </div>
     </header>
 
-    <main class="container">
-      <h1 class="section-title">
-        <span class="title-gradient">Личный кабинет</span>
-      </h1>
-
-      <div class="profile-wrapper">
-        <div class="profile-sidebar glass">
-          <div class="profile-avatar">
-            <i class="fas fa-user-circle"></i>
-            <h3>Александр Петров</h3>
-            <p>alex@example.com</p>
-          </div>
-          <nav class="profile-nav">
-            <button class="profile-nav-btn active" data-tab="info">
-              <i class="fas fa-user"></i> Личные данные
-            </button>
-            <button class="profile-nav-btn" data-tab="orders">
-              <i class="fas fa-box"></i> Мои заказы
-            </button>
-            <button class="profile-nav-btn" data-tab="wishlist">
-              <i class="fas fa-heart"></i> Избранное
-            </button>
-            <button class="profile-nav-btn" data-tab="password">
-              <i class="fas fa-key"></i> Смена пароля
-            </button>
-          </nav>
-          <button class="btn btn-outline logout-btn" style="width: 100%;" onclick="showToast('Выход из аккаунта')">Выйти</button>
-        </div>
-
-        <div class="profile-content glass">
-          <div class="profile-tab active" id="tab-info">
-            <h3><i class="fas fa-user"></i> Личная информация</h3>
-            <form id="profileForm" class="profile-form">
-              <div class="form-row">
-                <div class="form-group">
-                  <input type="text" id="fullName" placeholder=" " value="Александр Петров">
-                  <label for="fullName">Полное имя</label>
-                </div>
-                <div class="form-group">
-                  <input type="email" id="userEmail" placeholder=" " value="alex@example.com">
-                  <label for="userEmail">Email</label>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <input type="tel" id="userPhone" placeholder=" " value="+7 (999) 123-45-67">
-                  <label for="userPhone">Телефон</label>
-                </div>
-                <div class="form-group">
-                  <input type="text" id="userCity" placeholder=" " value="Москва">
-                  <label for="userCity">Город</label>
-                </div>
-              </div>
-              <div class="form-group">
-                <textarea id="userAddress" rows="2" placeholder=" ">г. Москва, ул. Примерная, д. 1</textarea>
-                <label for="userAddress">Адрес доставки</label>
-              </div>
-              <button type="submit" class="btn btn-neon">Сохранить изменения</button>
-            </form>
-          </div>
-
-          <div class="profile-tab" id="tab-orders">
-            <h3><i class="fas fa-box"></i> История заказов</h3>
-            <div id="ordersList"></div>
-          </div>
-
-          <div class="profile-tab" id="tab-wishlist">
-            <h3><i class="fas fa-heart"></i> Избранное</h3>
-            <div id="wishlistList"></div>
-          </div>
-
-          <div class="profile-tab" id="tab-password">
-            <h3><i class="fas fa-key"></i> Смена пароля</h3>
-            <form id="passwordForm" class="profile-form">
-              <div class="form-group">
-                <input type="password" id="currentPassword" placeholder=" ">
-                <label for="currentPassword">Текущий пароль</label>
-              </div>
-              <div class="form-group">
-                <input type="password" id="newPassword" placeholder=" ">
-                <label for="newPassword">Новый пароль</label>
-              </div>
-              <div class="form-group">
-                <input type="password" id="confirmPassword" placeholder=" ">
-                <label for="confirmPassword">Подтвердите пароль</label>
-              </div>
-              <button type="submit" class="btn btn-neon">Изменить пароль</button>
-            </form>
-          </div>
-        </div>
-      </div>
+    <main class="container profile-container">
+      <div id="profileRoot"></div>
     </main>
 
     <footer class="page-footer">
@@ -140,5 +277,332 @@
   </div>
 
   <script src="javascript.js"></script>
+  <script>
+    
+    (function() {
+      
+      function getUserData() {
+        
+        let currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+          try {
+            return JSON.parse(currentUser);
+          } catch(e) {}
+        }
+        
+        let profile = localStorage.getItem('profile');
+        if (profile) {
+          try {
+            return JSON.parse(profile);
+          } catch(e) {}
+        }
+        
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+          let email = localStorage.getItem('userEmail');
+          if (email) {
+            return { email: email, name: email.split('@')[0], phone: '' };
+          }
+        }
+        
+        return null;
+      }
+      
+      function saveUserData(name, phone) {
+        let user = getUserData();
+        if (!user) return false;
+        
+        
+        let currentUser = { 
+          id: Date.now(),
+          email: user.email, 
+          name: name, 
+          phone: phone 
+        };
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        
+        
+        localStorage.setItem('profile', JSON.stringify({ name: name, email: user.email, phone: phone }));
+        
+        
+        let users = JSON.parse(localStorage.getItem('users') || '[]');
+        let userIndex = users.findIndex(u => u.email === user.email);
+        if (userIndex !== -1) {
+          users[userIndex].name = name;
+          users[userIndex].phone = phone;
+        } else {
+          users.push(currentUser);
+        }
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        
+        let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+        let regIndex = registeredUsers.findIndex(u => u.email === user.email);
+        if (regIndex !== -1) {
+          let nameParts = name.split(' ');
+          registeredUsers[regIndex].firstName = nameParts[0] || '';
+          registeredUsers[regIndex].lastName = nameParts.slice(1).join(' ') || '';
+          registeredUsers[regIndex].phone = phone;
+          localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+        }
+        
+        return true;
+      }
+      
+      function logoutUser() {
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('profile');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userEmail');
+        showToastMessage('👋 Вы вышли из аккаунта');
+        setTimeout(() => window.location.href = 'index.html', 1000);
+      }
+      
+      function showToastMessage(message, isError = false) {
+        let toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i> ${message}`;
+        if (isError) toast.style.background = 'linear-gradient(135deg, #ff4444, #ff0066)';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+      }
+      
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+          if (m === '&') return '&amp;';
+          if (m === '<') return '&lt;';
+          if (m === '>') return '&gt;';
+          return m;
+        });
+      }
+      
+      function renderProfile() {
+        const user = getUserData();
+        const root = document.getElementById('profileRoot');
+        
+        
+        if (!user) {
+          root.innerHTML = `
+            <div class="glass" style="text-align: center; padding: 3rem; border-radius: 32px;">
+              <i class="fas fa-lock" style="font-size: 4rem; color: var(--neon-pink); margin-bottom: 1rem;"></i>
+              <h2>Требуется авторизация</h2>
+              <p style="color: var(--text-gray); margin: 1rem 0;">Пожалуйста, войдите в аккаунт, чтобы продолжить</p>
+              <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="login.html" style="background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink)); color: #000; padding: 0.8rem 2rem; border-radius: 40px; text-decoration: none; font-weight: 600;">Войти</a>
+                <a href="login.html?tab=register" style="border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 0.8rem 2rem; border-radius: 40px; text-decoration: none;">Зарегистрироваться</a>
+              </div>
+            </div>
+          `;
+          return;
+        }
+        
+        const userName = user.name || user.email.split('@')[0];
+        const userEmail = user.email;
+        const userPhone = user.phone || '';
+        
+        root.innerHTML = `
+          <div style="display: grid; grid-template-columns: 300px 1fr; gap: 2rem;" class="profile-wrapper">
+            <!-- Левая панель -->
+            <div class="profile-sidebar">
+              <div class="profile-avatar">
+                <i class="fas fa-user-astronaut"></i>
+              </div>
+              <h2 class="profile-name">${escapeHtml(userName)}</h2>
+              <p class="profile-email"><i class="fas fa-envelope"></i> ${escapeHtml(userEmail)}</p>
+              ${userPhone ? `<p class="profile-email"><i class="fas fa-phone"></i> ${escapeHtml(userPhone)}</p>` : ''}
+              
+              <div class="profile-nav">
+                <button class="profile-nav-btn active" data-tab="profile"><i class="fas fa-id-card"></i> Профиль</button>
+                <button class="profile-nav-btn" data-tab="orders"><i class="fas fa-box"></i> Заказы</button>
+                <button class="profile-nav-btn" data-tab="wishlist"><i class="fas fa-heart"></i> Избранное</button>
+                <button class="profile-nav-btn" data-tab="logout"><i class="fas fa-sign-out-alt"></i> Выйти</button>
+              </div>
+            </div>
+            
+            <!-- Правая панель -->
+            <div class="profile-content">
+              <!-- Вкладка Профиль -->
+              <div id="tab-profile" class="profile-tab" style="display: block;">
+                <h3 style="margin-bottom: 1.5rem; color: var(--neon-cyan);"><i class="fas fa-user-edit"></i> Редактировать профиль</h3>
+                
+                <div class="profile-form-group">
+                  <label><i class="fas fa-user"></i> Полное имя</label>
+                  <input type="text" id="fullName" value="${escapeHtml(userName)}" placeholder="Введите ваше имя">
+                </div>
+                
+                <div class="profile-form-group">
+                  <label><i class="fas fa-envelope"></i> Электронная почта</label>
+                  <input type="email" id="userEmail" value="${escapeHtml(userEmail)}" readonly>
+                </div>
+                
+                <div class="profile-form-group">
+                  <label><i class="fas fa-phone"></i> Телефон</label>
+                  <input type="tel" id="userPhone" value="${escapeHtml(userPhone)}" placeholder="+7 (___) ___-__-__">
+                </div>
+                
+                <button type="button" id="saveProfileBtn" class="btn-neon">
+                  <i class="fas fa-save"></i> Сохранить изменения
+                </button>
+              </div>
+              
+              <!-- Вкладка Заказы -->
+              <div id="tab-orders" class="profile-tab" style="display: none;">
+                <h3 style="margin-bottom: 1.5rem; color: var(--neon-cyan);"><i class="fas fa-history"></i> История заказов</h3>
+                <div id="ordersList"></div>
+              </div>
+              
+              <!-- Вкладка Избранное -->
+              <div id="tab-wishlist" class="profile-tab" style="display: none;">
+                <h3 style="margin-bottom: 1.5rem; color: var(--neon-cyan);"><i class="fas fa-heart"></i> Избранные товары</h3>
+                <div id="wishlistList"></div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        
+        const saveBtn = document.getElementById('saveProfileBtn');
+        if (saveBtn) {
+          saveBtn.onclick = function() {
+            const newName = document.getElementById('fullName').value.trim();
+            const newPhone = document.getElementById('userPhone').value.trim();
+            
+            if (!newName) {
+              showToastMessage('Пожалуйста, введите имя', true);
+              return;
+            }
+            
+            if (saveUserData(newName, newPhone)) {
+              showToastMessage('✅ Профиль успешно обновлён');
+              renderProfile(); // Обновляем страницу
+            } else {
+              showToastMessage('❌ Ошибка при сохранении', true);
+            }
+          };
+        }
+        
+        
+        loadOrders();
+        loadWishlist();
+        
+        
+        document.querySelectorAll('.profile-nav-btn').forEach(btn => {
+          btn.onclick = function() {
+            const tabId = this.dataset.tab;
+            
+            if (tabId === 'logout') {
+              logoutUser();
+              return;
+            }
+            
+            
+            document.querySelectorAll('.profile-tab').forEach(tab => tab.style.display = 'none');
+            
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            if (activeTab) activeTab.style.display = 'block';
+            
+            // Обновить активный класс кнопок
+            document.querySelectorAll('.profile-nav-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            
+            if (tabId === 'orders') loadOrders();
+            if (tabId === 'wishlist') loadWishlist();
+          };
+        });
+      }
+      
+      function loadOrders() {
+        const container = document.getElementById('ordersList');
+        if (!container) return;
+        
+        let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        
+        if (orders.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>У вас пока нет заказов</p>
+              <a href="catalog.html" class="btn-neon" style="text-decoration: none; display: inline-block; margin-top: 1rem;">Перейти в каталог</a>
+            </div>
+          `;
+          return;
+        }
+        
+        container.innerHTML = orders.map(order => `
+          <div class="order-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+              <span style="color: var(--neon-cyan); font-weight: 600;"><i class="fas fa-receipt"></i> Заказ №${order.id}</span>
+              <span style="background: ${order.status === 'delivered' ? 'rgba(0, 255, 100, 0.2)' : 'rgba(255, 68, 204, 0.2)'}; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.7rem; color: ${order.status === 'delivered' ? '#00ff66' : 'var(--neon-pink)'};">${order.status === 'delivered' ? '✓ Доставлен' : '🔄 В обработке'}</span>
+            </div>
+            <div style="color: var(--text-gray); font-size: 0.8rem; margin-bottom: 0.8rem;"><i class="fas fa-calendar-alt"></i> ${order.date}</div>
+            <div style="margin: 0.8rem 0; padding-left: 0.8rem; border-left: 2px solid var(--neon-cyan);">
+              ${order.items.map(item => `
+                <div style="display: flex; justify-content: space-between; padding: 0.3rem 0; font-size: 0.85rem;">
+                  <span>${escapeHtml(item.name)} × ${item.quantity}</span>
+                  <span style="color: var(--neon-pink);">${(item.price * item.quantity).toLocaleString()} ₽</span>
+                </div>
+              `).join('')}
+            </div>
+            <div style="text-align: right; font-weight: 700; font-size: 1rem; color: var(--neon-pink); padding-top: 0.5rem; border-top: 1px solid rgba(0, 255, 255, 0.1);">
+              Итого: ${order.total.toLocaleString()} ₽
+            </div>
+          </div>
+        `).join('');
+      }
+      
+      function loadWishlist() {
+        const container = document.getElementById('wishlistList');
+        if (!container) return;
+        
+        let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        
+        if (wishlist.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-heart-broken"></i>
+              <p>Избранное пусто</p>
+              <a href="catalog.html" class="btn-neon" style="text-decoration: none; display: inline-block; margin-top: 1rem;">Перейти в каталог</a>
+            </div>
+          `;
+          return;
+        }
+        
+        container.innerHTML = wishlist.map(item => `
+          <div class="wishlist-item">
+            <div style="width: 50px; height: 50px; background: rgba(0, 255, 255, 0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+              <i class="fas ${item.icon}" style="font-size: 1.5rem; color: var(--neon-cyan);"></i>
+            </div>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; margin-bottom: 0.2rem;">${escapeHtml(item.name)}</div>
+              <div style="color: var(--neon-pink); font-weight: 700;">${item.price.toLocaleString()} ₽</div>
+            </div>
+            <button class="remove-wishlist-btn" data-id="${item.id}" style="background: none; border: none; color: #ff6b6b; cursor: pointer; font-size: 1.2rem; padding: 0.5rem; transition: all 0.2s;">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        `).join('');
+        
+        document.querySelectorAll('.remove-wishlist-btn').forEach(btn => {
+          btn.onclick = function() {
+            const id = parseInt(this.dataset.id);
+            let wl = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            const removedItem = wl.find(i => i.id === id);
+            wl = wl.filter(i => i.id !== id);
+            localStorage.setItem('wishlist', JSON.stringify(wl));
+            loadWishlist();
+            showToastMessage(`💔 ${removedItem?.name} удалён из избранного`);
+            if (typeof updateWishlistButtons === 'function') updateWishlistButtons();
+          };
+        });
+      }
+      
+      
+      renderProfile();
+      if (typeof updateCartBadge === 'function') updateCartBadge();
+      if (typeof updateUserMenu === 'function') updateUserMenu();
+      
+    })();
+  </script>
 </body>
 </html>

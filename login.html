@@ -25,7 +25,7 @@
       color: var(--text-gray);
       font-weight: 600;
       cursor: pointer;
-      transition: 0.3s;
+      transition: 0.2s ease;
       position: relative;
     }
     .auth-tab-btn.active {
@@ -43,18 +43,115 @@
     }
     .auth-form {
       display: none;
-      animation: fadeIn 0.3s ease;
+      animation: fadeIn 0.2s ease;
     }
     .auth-form.active {
       display: block;
     }
-    .auth-form .form-group {
+    .form-group {
+      position: relative;
       margin-bottom: 1.2rem;
     }
-    .auth-form .btn {
+    .form-group input {
       width: 100%;
+      padding: 0.8rem;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 16px;
+      color: white;
+      font-size: 0.9rem;
+      transition: 0.2s ease;
+    }
+    .form-group input:focus {
+      border-color: var(--neon-cyan);
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+    .form-group input.error {
+      border-color: #ff4444;
+    }
+    .form-group label {
+      position: absolute;
+      left: 0.8rem;
+      top: 0.8rem;
+      color: var(--text-gray);
+      transition: 0.2s ease;
+      pointer-events: none;
+    }
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+      top: -0.5rem;
+      left: 0.5rem;
+      font-size: 0.7rem;
+      background: #0a121c;
+      padding: 0 0.3rem;
+      color: var(--neon-cyan);
+    }
+    .error-message {
+      color: #ff4444;
+      font-size: 0.7rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+    .error-message.show {
+      display: block;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
+      gap: 0.6rem;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.2s ease;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+    }
+    .btn-neon {
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+      color: #000;
+    }
+    .btn-neon:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .checkbox-group input {
+      width: auto;
+    }
+    .checkbox-group label {
+      position: static;
+      color: var(--text-gray);
+      font-size: 0.8rem;
+    }
+    .checkbox-group a {
+      color: var(--neon-cyan);
+      text-decoration: none;
+    }
+    .forgot-password {
+      text-align: right;
       margin-top: 0.5rem;
+    }
+    .forgot-password a {
+      color: var(--text-gray);
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+    .forgot-password a:hover {
+      color: var(--neon-cyan);
     }
     .auth-divider {
       text-align: center;
@@ -90,41 +187,15 @@
       border: 1px solid rgba(0, 255, 255, 0.2);
       color: white;
       text-decoration: none;
-      transition: 0.3s;
+      transition: 0.2s ease;
     }
     .social-login-btn:hover {
       border-color: var(--neon-cyan);
       background: rgba(0, 255, 255, 0.1);
+      transform: translateY(-2px);
     }
-    .forgot-password {
-      text-align: right;
-      margin-top: 0.5rem;
-    }
-    .forgot-password a {
-      color: var(--text-gray);
-      font-size: 0.8rem;
-      text-decoration: none;
-    }
-    .forgot-password a:hover {
-      color: var(--neon-cyan);
-    }
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin: 1rem 0;
-    }
-    .checkbox-group input {
-      width: auto;
-    }
-    .checkbox-group label {
-      position: static;
-      color: var(--text-gray);
-      font-size: 0.8rem;
-    }
-    .checkbox-group a {
-      color: var(--neon-cyan);
-      text-decoration: none;
+    body.light-theme .social-login-btn {
+      color: #1a1a2e;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -155,7 +226,7 @@
         </ul>
       </nav>
       <div class="header-icons">
-        <a href="profile.html"><i class="fas fa-user"></i></a>
+        <div class="user-menu-area"></div>
         <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
       </div>
     </header>
@@ -173,10 +244,12 @@
             <div class="form-group">
               <input type="email" id="loginEmail" placeholder=" " required>
               <label for="loginEmail">Электронная почта</label>
+              <div class="error-message" id="loginEmailError"></div>
             </div>
             <div class="form-group">
               <input type="password" id="loginPassword" placeholder=" " required>
               <label for="loginPassword">Пароль</label>
+              <div class="error-message" id="loginPasswordError"></div>
             </div>
             <div class="checkbox-group">
               <input type="checkbox" id="rememberMe">
@@ -186,7 +259,7 @@
               <i class="fas fa-arrow-right-to-bracket"></i> Войти
             </button>
             <div class="forgot-password">
-              <a href="#">Забыли пароль?</a>
+              <a href="#" id="forgotPasswordLink">Забыли пароль?</a>
             </div>
           </form>
 
@@ -195,7 +268,8 @@
             <div class="form-row">
               <div class="form-group">
                 <input type="text" id="regFirstName" placeholder=" " required>
-                <label for="regFirstName">Имя</label>
+                <label for="regFirstName">Имя *</label>
+                <div class="error-message" id="regFirstNameError"></div>
               </div>
               <div class="form-group">
                 <input type="text" id="regLastName" placeholder=" ">
@@ -204,7 +278,8 @@
             </div>
             <div class="form-group">
               <input type="email" id="regEmail" placeholder=" " required>
-              <label for="regEmail">Электронная почта</label>
+              <label for="regEmail">Электронная почта *</label>
+              <div class="error-message" id="regEmailError"></div>
             </div>
             <div class="form-group">
               <input type="tel" id="regPhone" placeholder=" ">
@@ -212,11 +287,13 @@
             </div>
             <div class="form-group">
               <input type="password" id="regPassword" placeholder=" " required>
-              <label for="regPassword">Пароль</label>
+              <label for="regPassword">Пароль *</label>
+              <div class="error-message" id="regPasswordError"></div>
             </div>
             <div class="form-group">
               <input type="password" id="regConfirmPassword" placeholder=" " required>
-              <label for="regConfirmPassword">Подтвердите пароль</label>
+              <label for="regConfirmPassword">Подтвердите пароль *</label>
+              <div class="error-message" id="regConfirmError"></div>
             </div>
             <div class="checkbox-group">
               <input type="checkbox" id="agreeTerms" required>
@@ -260,12 +337,109 @@
 
   <script src="javascript.js"></script>
   <script>
-    function showAuthToast(message) {
+    
+    if (typeof window.preventAutoRedirect !== 'undefined') {
+      window.preventAutoRedirect = true;
+    }
+    
+    
+    function getAllUsers() {
+      const users = localStorage.getItem('registeredUsers');
+      return users ? JSON.parse(users) : [];
+    }
+
+    function saveUser(user) {
+      const users = getAllUsers();
+      const existing = users.find(u => u.email === user.email);
+      if (existing) return false;
+      users.push(user);
+      localStorage.setItem('registeredUsers', JSON.stringify(users));
+      return true;
+    }
+
+    function findUserByEmail(email) {
+      const users = getAllUsers();
+      return users.find(u => u.email === email);
+    }
+
+    function showFormError(inputId, errorId, message) {
+      const input = document.getElementById(inputId);
+      const error = document.getElementById(errorId);
+      if (input) input.classList.add('error');
+      if (error) {
+        error.textContent = message;
+        error.classList.add('show');
+      }
+    }
+
+    function clearFormError(inputId, errorId) {
+      const input = document.getElementById(inputId);
+      const error = document.getElementById(errorId);
+      if (input) input.classList.remove('error');
+      if (error) {
+        error.textContent = '';
+        error.classList.remove('show');
+      }
+    }
+
+    function clearAllErrors(formId) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+      form.querySelectorAll('.form-group input').forEach(input => {
+        input.classList.remove('error');
+      });
+      form.querySelectorAll('.error-message').forEach(err => {
+        err.textContent = '';
+        err.classList.remove('show');
+      });
+    }
+
+    function showToast(message, isError = false, duration = 3000) {
       const toast = document.createElement('div');
       toast.className = 'toast';
-      toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+      toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i> ${message}`;
+      if (isError) {
+        toast.style.background = 'linear-gradient(135deg, #ff4444, #ff0066)';
+      }
       document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
+      setTimeout(() => toast.remove(), duration);
+    }
+
+    
+    function setUserSession(userData) {
+      const currentUser = {
+        id: Date.now(),
+        email: userData.email,
+        name: `${userData.firstName || ''} ${userData.lastName || ''}`.trim() || userData.email.split('@')[0],
+        phone: userData.phone || ''
+      };
+      
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userEmail', userData.email);
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      localStorage.setItem('profile', JSON.stringify({
+        name: currentUser.name,
+        email: userData.email,
+        phone: currentUser.phone
+      }));
+      
+      let users = JSON.parse(localStorage.getItem('users') || '[]');
+      let existingUser = users.find(u => u.email === userData.email);
+      if (!existingUser) {
+        users.push(currentUser);
+        localStorage.setItem('users', JSON.stringify(users));
+      } else {
+        existingUser.name = currentUser.name;
+        existingUser.phone = currentUser.phone;
+        localStorage.setItem('users', JSON.stringify(users));
+      }
+      
+      if (typeof window.updateUserMenu === 'function') {
+        window.updateUserMenu();
+      }
+      if (typeof window.updateCartBadge === 'function') {
+        window.updateCartBadge();
+      }
     }
 
     
@@ -275,117 +449,183 @@
         btn.classList.add('active');
         document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
         document.getElementById(`${btn.dataset.tab}Form`).classList.add('active');
+        clearAllErrors('loginForm');
+        clearAllErrors('registerForm');
       };
     });
 
     
     document.getElementById('loginForm').onsubmit = (e) => {
       e.preventDefault();
-      const email = document.getElementById('loginEmail').value;
+      clearAllErrors('loginForm');
+      
+      const email = document.getElementById('loginEmail').value.trim();
       const password = document.getElementById('loginPassword').value;
+      let isValid = true;
       
-      if (!email || !password) {
-        showAuthToast('Заполните все поля');
+      if (!email) {
+        showFormError('loginEmail', 'loginEmailError', 'Введите email');
+        isValid = false;
+      } else if (!email.includes('@')) {
+        showFormError('loginEmail', 'loginEmailError', 'Введите корректный email');
+        isValid = false;
+      }
+      
+      if (!password) {
+        showFormError('loginPassword', 'loginPasswordError', 'Введите пароль');
+        isValid = false;
+      }
+      
+      if (!isValid) return;
+      
+      const user = findUserByEmail(email);
+      
+      if (!user) {
+        showFormError('loginEmail', 'loginEmailError', 'Пользователь с таким email не найден');
+        return;
+      }
+      
+      if (user.password !== password) {
+        showFormError('loginPassword', 'loginPasswordError', 'Неверный пароль');
         return;
       }
       
       
-      if (!email.includes('@')) {
-        showAuthToast('Введите корректный email');
-        return;
+      setUserSession({
+        email: user.email,
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        phone: user.phone || ''
+      });
+      
+      showToast('Добро пожаловать!');
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      let redirectTo = urlParams.get('redirect');
+      if (!redirectTo || redirectTo === 'login.html' || redirectTo === 'null') {
+        redirectTo = 'profile.html';
       }
       
       
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('userEmail', email);
-      
-      
-      const registeredUser = localStorage.getItem('registeredUser');
-      if (registeredUser) {
-        const user = JSON.parse(registeredUser);
-        if (user.email === email) {
-          localStorage.setItem('profile', JSON.stringify({
-            name: `${user.firstName} ${user.lastName || ''}`.trim(),
-            email: user.email,
-            phone: user.phone || ''
-          }));
-        }
-      }
-      
-      showAuthToast('Добро пожаловать!');
-      setTimeout(() => {
-        window.location.href = 'profile.html';
-      }, 1000);
+      window.location.href = redirectTo;
     };
 
     
     document.getElementById('registerForm').onsubmit = (e) => {
       e.preventDefault();
-      const firstName = document.getElementById('regFirstName').value;
-      const lastName = document.getElementById('regLastName').value;
-      const email = document.getElementById('regEmail').value;
-      const phone = document.getElementById('regPhone').value;
+      clearAllErrors('registerForm');
+      
+      const firstName = document.getElementById('regFirstName').value.trim();
+      const lastName = document.getElementById('regLastName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
       const password = document.getElementById('regPassword').value;
       const confirmPassword = document.getElementById('regConfirmPassword').value;
       const agreeTerms = document.getElementById('agreeTerms').checked;
       
-      if (!firstName || !email || !password) {
-        showAuthToast('Заполните обязательные поля');
-        return;
+      let isValid = true;
+      
+      if (!firstName) {
+        showFormError('regFirstName', 'regFirstNameError', 'Введите имя');
+        isValid = false;
+      } else if (firstName.length < 2) {
+        showFormError('regFirstName', 'regFirstNameError', 'Имя должно содержать минимум 2 символа');
+        isValid = false;
       }
       
-      if (!email.includes('@')) {
-        showAuthToast('Введите корректный email');
-        return;
+      if (!email) {
+        showFormError('regEmail', 'regEmailError', 'Введите email');
+        isValid = false;
+      } else if (!email.includes('@') || !email.includes('.')) {
+        showFormError('regEmail', 'regEmailError', 'Введите корректный email');
+        isValid = false;
+      } else {
+        const existing = findUserByEmail(email);
+        if (existing) {
+          showFormError('regEmail', 'regEmailError', 'Пользователь с таким email уже существует');
+          isValid = false;
+        }
       }
       
-      if (password.length < 6) {
-        showAuthToast('Пароль должен содержать минимум 6 символов');
-        return;
+      if (!password) {
+        showFormError('regPassword', 'regPasswordError', 'Введите пароль');
+        isValid = false;
+      } else if (password.length < 6) {
+        showFormError('regPassword', 'regPasswordError', 'Пароль должен содержать минимум 6 символов');
+        isValid = false;
       }
       
       if (password !== confirmPassword) {
-        showAuthToast('Пароли не совпадают');
-        return;
+        showFormError('regConfirmPassword', 'regConfirmError', 'Пароли не совпадают');
+        isValid = false;
       }
       
       if (!agreeTerms) {
-        showAuthToast('Подтвердите согласие с условиями');
-        return;
+        showToast('Подтвердите согласие с условиями', true);
+        isValid = false;
       }
       
+      if (!isValid) return;
       
       const userData = {
         firstName: firstName,
         lastName: lastName,
         email: email,
         phone: phone,
-        password: password
+        password: password,
+        registeredAt: new Date().toISOString()
       };
-      localStorage.setItem('registeredUser', JSON.stringify(userData));
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('userEmail', email);
       
-      // Сохраняем профиль
-      localStorage.setItem('profile', JSON.stringify({
-        name: `${firstName} ${lastName || ''}`.trim(),
-        email: email,
-        phone: phone || ''
-      }));
+      const saved = saveUser(userData);
+      if (!saved) {
+        showFormError('regEmail', 'regEmailError', 'Пользователь с таким email уже существует');
+        return;
+      }
       
-      showAuthToast('Регистрация прошла успешно!');
-      setTimeout(() => {
-        window.location.href = 'profile.html';
-      }, 1000);
+      
+      setUserSession(userData);
+      
+      showToast('Регистрация прошла успешно!');
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      let redirectTo = urlParams.get('redirect');
+      if (!redirectTo || redirectTo === 'login.html' || redirectTo === 'null') {
+        redirectTo = 'profile.html';
+      }
+      
+      window.location.href = redirectTo;
+    };
+
+    
+    document.getElementById('forgotPasswordLink').onclick = (e) => {
+      e.preventDefault();
+      showToast('📧 Инструкция по восстановлению отправлена на вашу почту (демо-режим)', false, 4000);
     };
 
     
     if (localStorage.getItem('isLoggedIn') === 'true') {
-      const redirectTo = new URLSearchParams(window.location.search).get('redirect') || 'profile.html';
-      setTimeout(() => {
+      const urlParams = new URLSearchParams(window.location.search);
+      let redirectTo = urlParams.get('redirect');
+      if (!redirectTo || redirectTo === 'login.html' || redirectTo === 'null') {
+        redirectTo = 'profile.html';
+      }
+      if (redirectTo !== 'login.html' && redirectTo !== window.location.pathname) {
         window.location.href = redirectTo;
-      }, 500);
+      }
     }
+
+    
+    const inputs = document.querySelectorAll('.form-group input');
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        input.classList.remove('error');
+        const errorDiv = input.parentElement.querySelector('.error-message');
+        if (errorDiv) {
+          errorDiv.textContent = '';
+          errorDiv.classList.remove('show');
+        }
+      });
+    });
   </script>
 </body>
 </html>

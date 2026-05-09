@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
   <style>
-    /* Стили для галереи изображений */
     .product-gallery {
       display: flex;
       flex-direction: column;
@@ -29,7 +28,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transition: transform 0.3s ease;
+      transition: transform 0.2s ease;
     }
     .main-image:hover img {
       transform: scale(1.05);
@@ -53,7 +52,7 @@
       height: 40px;
       border-radius: 50%;
       cursor: pointer;
-      transition: 0.3s;
+      transition: 0.2s ease;
       font-size: 1.2rem;
     }
     .nav-arrows button:hover {
@@ -74,7 +73,7 @@
       overflow: hidden;
       cursor: pointer;
       border: 2px solid transparent;
-      transition: 0.3s;
+      transition: 0.2s ease;
       flex-shrink: 0;
     }
     .thumbnail img {
@@ -99,6 +98,28 @@
       border-radius: 20px;
       font-size: 0.8rem;
       color: var(--neon-cyan);
+    }
+    .product-not-found {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .product-not-found i {
+      font-size: 4rem;
+      color: var(--text-gray);
+      margin-bottom: 1rem;
+    }
+    .loading-spinner {
+      text-align: center;
+      padding: 4rem;
+    }
+    .loading-spinner i {
+      font-size: 3rem;
+      color: var(--neon-cyan);
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     @media (max-width: 768px) {
       .thumbnail { width: 60px; height: 60px; }
@@ -129,90 +150,19 @@
         </ul>
       </nav>
       <div class="header-icons">
-        <a href="login.html"><i class="fas fa-user"></i></a>
+        <div class="user-menu-area"></div>
         <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
       </div>
     </header>
 
     <main class="container">
-      <nav class="breadcrumbs">
-        <a href="index.html">Главная</a> /
-        <a href="catalog.html">Каталог</a> /
-        <span id="breadcrumbCategory">Категория</span> /
-        <span id="breadcrumbName">Загрузка...</span>
-      </nav>
-
-      <div class="product-detail glass" id="productDetail">
-        <div class="product-gallery">
-          <div class="main-image" id="mainImageContainer">
-            <img id="mainImage" src="" alt="Product image">
-            <div class="nav-arrows">
-              <button id="prevImageBtn" onclick="changeImage(-1)"><i class="fas fa-chevron-left"></i></button>
-              <button id="nextImageBtn" onclick="changeImage(1)"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            <div class="image-counter" id="imageCounter">1 / 1</div>
-          </div>
-          <div class="thumbnail-list" id="thumbnailList"></div>
-        </div>
-        <div class="detail-info">
-          <h2 id="productName">Загрузка...</h2>
-          <div class="product-price" id="productPrice">0 ₽</div>
-          <div class="product-availability" id="productAvailability">
-            <i class="fas fa-check-circle"></i> В наличии
-          </div>
-          
-          <div class="specs-grid" id="productSpecs"></div>
-          
-          <div class="product-description" id="productDescription"></div>
-          
-          <div class="quantity-selector">
-            <label>Количество:</label>
-            <div class="quantity-controls">
-              <button class="quantity-btn minus" id="quantityMinus">-</button>
-              <input type="number" min="1" value="1" class="quantity-input" id="quantityInput">
-              <button class="quantity-btn plus" id="quantityPlus">+</button>
-            </div>
-          </div>
-          
-          <div class="product-actions">
-            <button class="btn btn-neon" id="addToCartBtn">
-              <i class="fas fa-shopping-cart"></i> В корзину
-            </button>
-            <button class="btn btn-outline" id="wishlistBtn">
-              <i class="far fa-heart"></i> В избранное
-            </button>
-          </div>
-          
-          <div class="product-meta">
-            <div class="meta-item"><i class="fas fa-truck"></i> Бесплатная доставка от 5000₽</div>
-            <div class="meta-item"><i class="fas fa-shield-alt"></i> Гарантия 3 года</div>
-            <div class="meta-item"><i class="fas fa-undo-alt"></i> Возврат 14 дней</div>
-          </div>
+      <div id="productContent">
+        
+        <div class="loading-spinner">
+          <i class="fas fa-microchip fa-spin"></i>
+          <p>Загрузка товара...</p>
         </div>
       </div>
-
-      <div class="product-tabs">
-        <div class="tabs-header">
-          <button class="tab-btn active" data-tab="description">Описание</button>
-          <button class="tab-btn" data-tab="specs">Характеристики</button>
-          <button class="tab-btn" data-tab="reviews">Отзывы (<span id="reviewsCount">0</span>)</button>
-        </div>
-        <div class="tab-content active" id="tab-description">
-          <div id="fullDescription"></div>
-        </div>
-        <div class="tab-content" id="tab-specs">
-          <div id="fullSpecs"></div>
-        </div>
-        <div class="tab-content" id="tab-reviews">
-          <div id="reviewsList"></div>
-          <button class="btn btn-outline write-review" id="writeReviewBtn">✍️ Написать отзыв</button>
-        </div>
-      </div>
-
-      <h2 class="section-title">
-        <span class="title-gradient">Похожие товары</span>
-      </h2>
-      <div class="product-grid" id="relatedProducts"></div>
     </main>
 
     <footer class="page-footer">
@@ -245,36 +195,7 @@
 
   <script src="javascript.js"></script>
   <script>
-    // Функция для получения списка изображений товара (ВСЕ ФОРМАТЫ .png)
-    function getProductImages(productId, productName) {
-      const images = [];
-      
-      // Количество фото для каждого товара
-      const imageCounts = {
-        'AMD Ryzen 5 5600X': 7,
-        'be quiet! 850W': 7,
-        'Corsair 650W': 7,
-        'Corsair Vengeance 32GB': 4,
-        'Deepcool AK620': 7,
-        'Intel Core i5-13400': 6,
-        'Kingston Fury 16GB': 5,
-        'NZXT Kraken 240': 3,
-        'RTX 3060 12GB': 4,
-        'Samsung 980 1TB': 5,
-        'WD Blue 2TB HDD': 5
-      };
-      
-      const count = imageCounts[productName] || 1;
-      
-      // ВСЕ ФОТО В ФОРМАТЕ .png
-      for (let i = 1; i <= count; i++) {
-        images.push(`images/${productName} (${i}).png`);
-      }
-      
-      return images;
-    }
-
-    // Данные товаров
+    
     const products = {
       1: { 
         id: 1, 
@@ -297,7 +218,7 @@
           { label: "TDP", value: "65 Вт" }
         ], 
         description: "Intel Core i5-13400 — это мощный процессор для игр и рабочих задач.",
-        fullDescription: "<p>Intel Core i5-13400 — это процессор среднего сегмента, который предлагает отличное соотношение цены и производительности.</p>"
+        fullDescription: "<p>Intel Core i5-13400 — это процессор среднего сегмента, который предлагает отличное соотношение цены и производительности. Отлично подходит для современных игр и профессиональных приложений.</p>"
       },
       2: { 
         id: 2, 
@@ -320,7 +241,7 @@
           { label: "TDP", value: "65 Вт" }
         ], 
         description: "AMD Ryzen 5 5600X — идеальный выбор для игр и работы.",
-        fullDescription: "<p>AMD Ryzen 5 5600X — это шестиядерный процессор на архитектуре Zen 3.</p>"
+        fullDescription: "<p>AMD Ryzen 5 5600X — это шестиядерный процессор на архитектуре Zen 3. Обеспечивает отличную производительность в играх и приложениях.</p>"
       },
       3: { 
         id: 3, 
@@ -338,7 +259,7 @@
           { label: "Тайминги", value: "CL16-18-18" }
         ], 
         description: "Kingston Fury Beast 16GB — высокопроизводительная оперативная память.",
-        fullDescription: "<p>Kingston Fury Beast — это оперативная память для энтузиастов.</p>"
+        fullDescription: "<p>Kingston Fury Beast — это оперативная память для энтузиастов. Отличный выбор для игровых ПК.</p>"
       },
       4: { 
         id: 4, 
@@ -355,7 +276,7 @@
           { label: "Частота", value: "3600 МГц" }
         ], 
         description: "Corsair Vengeance LPX 32GB — высокопроизводительный комплект памяти.",
-        fullDescription: "<p>Corsair Vengeance LPX — это выбор профессионалов.</p>"
+        fullDescription: "<p>Corsair Vengeance LPX — это выбор профессионалов. Идеально для рабочих станций и мощных игровых ПК.</p>"
       },
       5: { 
         id: 5, 
@@ -372,7 +293,7 @@
           { label: "Скорость чтения", value: "3500 МБ/с" }
         ], 
         description: "Samsung 980 1TB — высокоскоростной NVMe SSD.",
-        fullDescription: "<p>Samsung 980 — это SSD нового поколения.</p>"
+        fullDescription: "<p>Samsung 980 — это SSD нового поколения. Обеспечивает высокую скорость загрузки системы и приложений.</p>"
       },
       6: { 
         id: 6, 
@@ -389,7 +310,7 @@
           { label: "Скорость вращения", value: "7200 об/мин" }
         ], 
         description: "WD Blue 2TB — надежный жесткий диск.",
-        fullDescription: "<p>WD Blue 2TB — это надежное решение для хранения данных.</p>"
+        fullDescription: "<p>WD Blue 2TB — это надежное решение для хранения данных. Отличный выбор для архивации файлов.</p>"
       },
       7: { 
         id: 7, 
@@ -405,7 +326,7 @@
           { label: "Объем памяти", value: "12 ГБ GDDR6" }
         ], 
         description: "RTX 3060 12GB — видеокарта для игр.",
-        fullDescription: "<p>NVIDIA GeForce RTX 3060 — отличная видеокарта.</p>"
+        fullDescription: "<p>NVIDIA GeForce RTX 3060 — отличная видеокарта для игр в 1080p и 1440p. Поддерживает трассировку лучей.</p>"
       },
       8: { 
         id: 8, 
@@ -421,7 +342,7 @@
           { label: "Объем памяти", value: "12 ГБ GDDR6X" }
         ], 
         description: "RTX 4070 12GB — видеокарта для 1440p гейминга.",
-        fullDescription: "<p>NVIDIA GeForce RTX 4070 на архитектуре Ada Lovelace.</p>"
+        fullDescription: "<p>NVIDIA GeForce RTX 4070 на архитектуре Ada Lovelace. Обеспечивает высокую производительность в современных играх.</p>"
       },
       9: { 
         id: 9, 
@@ -437,7 +358,7 @@
           { label: "Сертификация", value: "80+ Bronze" }
         ], 
         description: "Corsair 650W — надежный блок питания.",
-        fullDescription: "<p>Corsair CX650F RGB — современный блок питания.</p>"
+        fullDescription: "<p>Corsair CX650F RGB — современный блок питания с хорошей эффективностью.</p>"
       },
       10: { 
         id: 10, 
@@ -453,7 +374,7 @@
           { label: "Сертификация", value: "80+ Gold" }
         ], 
         description: "be quiet! 850W — топовый блок питания.",
-        fullDescription: "<p>be quiet! Straight Power 11 — эталон тишины.</p>"
+        fullDescription: "<p>be quiet! Straight Power 11 — эталон тишины и надежности. Полностью модульная система кабелей.</p>"
       },
       11: { 
         id: 11, 
@@ -469,7 +390,7 @@
           { label: "TDP", value: "260 Вт" }
         ], 
         description: "Deepcool AK620 — мощный воздушный кулер.",
-        fullDescription: "<p>Deepcool AK620 — один из лучших воздушных кулеров.</p>"
+        fullDescription: "<p>Deepcool AK620 — один из лучших воздушных кулеров. Справляется с горячими процессорами.</p>"
       },
       12: { 
         id: 12, 
@@ -485,18 +406,261 @@
           { label: "Размер радиатора", value: "240 мм" }
         ], 
         description: "NZXT Kraken 240 — жидкостное охлаждение.",
-        fullDescription: "<p>NZXT Kraken 240 — система жидкостного охлаждения.</p>"
+        fullDescription: "<p>NZXT Kraken 240 — система жидкостного охлаждения с эффектной подсветкой.</p>"
       }
     };
+
+    
+    function getProductImages(productName) {
+      const images = [];
+      const imageCounts = {
+        'Intel Core i5-13400': 6,
+        'AMD Ryzen 5 5600X': 7,
+        'Kingston Fury 16GB': 5,
+        'Corsair Vengeance 32GB': 4,
+        'Samsung 980 1TB': 5,
+        'WD Blue 2TB HDD': 5,
+        'RTX 3060 12GB': 4,
+        'RTX 4070 12GB': 4,
+        'Corsair 650W': 7,
+        'be quiet! 850W': 7,
+        'Deepcool AK620': 7,
+        'NZXT Kraken 240': 3
+      };
+      
+      const count = imageCounts[productName] || 1;
+      for (let i = 1; i <= count; i++) {
+        images.push(`images/${productName} (${i}).png`);
+      }
+      return images;
+    }
 
     let currentProduct = null;
     let currentImages = [];
     let currentImageIndex = 0;
-    let currentQuantity = 1;
 
-    function getProductId() {
+    function showNotFound() {
+      const container = document.getElementById('productContent');
+      container.innerHTML = `
+        <div class="product-not-found glass">
+          <i class="fas fa-search"></i>
+          <h2>Товар не найден</h2>
+          <p>К сожалению, товар с таким ID не существует.</p>
+          <a href="catalog.html" class="btn btn-neon" style="margin-top: 1.5rem;">Перейти в каталог →</a>
+        </div>
+      `;
+    }
+
+    function loadProduct() {
       const params = new URLSearchParams(window.location.search);
-      return parseInt(params.get('id'));
+      const id = parseInt(params.get('id'));
+      
+      
+      if (!id || !products[id]) {
+        showNotFound();
+        return;
+      }
+      
+      currentProduct = products[id];
+      currentImages = getProductImages(currentProduct.name);
+      currentImageIndex = 0;
+      
+      renderProductPage();
+    }
+
+    function renderProductPage() {
+      const container = document.getElementById('productContent');
+      
+      container.innerHTML = `
+        <nav class="breadcrumbs">
+          <a href="index.html">Главная</a> /
+          <a href="catalog.html">Каталог</a> /
+          <span>${currentProduct.categoryName}</span> /
+          <span>${currentProduct.name}</span>
+        </nav>
+
+        <div class="product-detail glass">
+          <div class="product-gallery">
+            <div class="main-image" id="mainImageContainer">
+              <img id="mainImage" src="${currentImages[0] || 'images/placeholder.png'}" alt="${currentProduct.name}">
+              <div class="nav-arrows">
+                <button id="prevImageBtn"><i class="fas fa-chevron-left"></i></button>
+                <button id="nextImageBtn"><i class="fas fa-chevron-right"></i></button>
+              </div>
+              <div class="image-counter" id="imageCounter">1 / ${currentImages.length}</div>
+            </div>
+            <div class="thumbnail-list" id="thumbnailList"></div>
+          </div>
+          <div class="detail-info">
+            <h2>${currentProduct.name}</h2>
+            <div class="product-price">${currentProduct.price.toLocaleString()} ₽</div>
+            <div class="product-availability">
+              <i class="fas fa-check-circle"></i> В наличии
+            </div>
+            
+            <div class="specs-grid" id="productSpecs"></div>
+            
+            <div class="product-description">
+              <p>${currentProduct.description}</p>
+            </div>
+            
+            <div class="quantity-selector">
+              <label>Количество:</label>
+              <div class="quantity-controls">
+                <button class="quantity-btn minus" id="quantityMinus">-</button>
+                <input type="number" min="1" max="99" value="1" class="quantity-input" id="quantityInput">
+                <button class="quantity-btn plus" id="quantityPlus">+</button>
+              </div>
+            </div>
+            
+            <div class="product-actions">
+              <button class="btn btn-neon" id="addToCartBtn">
+                <i class="fas fa-shopping-cart"></i> В корзину
+              </button>
+              <button class="btn btn-outline" id="wishlistBtn">
+                <i class="far fa-heart"></i> В избранное
+              </button>
+            </div>
+            
+            <div class="product-meta">
+              <div class="meta-item"><i class="fas fa-truck"></i> Бесплатная доставка от 5000₽</div>
+              <div class="meta-item"><i class="fas fa-shield-alt"></i> Гарантия 3 года</div>
+              <div class="meta-item"><i class="fas fa-undo-alt"></i> Возврат 14 дней</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-tabs">
+          <div class="tabs-header">
+            <button class="tab-btn active" data-tab="description">Описание</button>
+            <button class="tab-btn" data-tab="specs">Характеристики</button>
+            <button class="tab-btn" data-tab="reviews">Отзывы (<span id="reviewsCount">0</span>)</button>
+          </div>
+          <div class="tab-content active" id="tab-description">
+            <div id="fullDescription">${currentProduct.fullDescription}</div>
+          </div>
+          <div class="tab-content" id="tab-specs">
+            <div id="fullSpecs"></div>
+          </div>
+          <div class="tab-content" id="tab-reviews">
+            <div id="reviewsList"></div>
+            <button class="btn btn-outline write-review" id="writeReviewBtn" style="margin-top: 1.5rem;">✍️ Написать отзыв</button>
+          </div>
+        </div>
+
+        <h2 class="section-title">
+          <span class="title-gradient">Похожие товары</span>
+        </h2>
+        <div class="product-grid" id="relatedProducts"></div>
+      `;
+      
+      
+      const specsGrid = document.getElementById('productSpecs');
+      specsGrid.innerHTML = currentProduct.specs.map(spec => {
+        const parts = spec.split(' ');
+        const label = parts[0];
+        return `<div class="spec-item"><span class="spec-label">${label}</span><span class="spec-value">${spec}</span></div>`;
+      }).join('');
+      
+      const fullSpecs = document.getElementById('fullSpecs');
+      fullSpecs.innerHTML = currentProduct.fullSpecs.map(spec => 
+        `<div class="spec-item"><span class="spec-label">${spec.label}</span><span class="spec-value">${spec.value}</span></div>`
+      ).join('');
+      
+      
+      const thumbnailList = document.getElementById('thumbnailList');
+      thumbnailList.innerHTML = currentImages.map((img, idx) => `
+        <div class="thumbnail ${idx === 0 ? 'active' : ''}" data-index="${idx}">
+          <img src="${img}" alt="Фото ${idx + 1}">
+        </div>
+      `).join('');
+      
+      
+      attachEventHandlers();
+      loadReviews();
+      loadRelatedProducts();
+      updateWishlistButton();
+      
+      
+      if (currentProduct.hasSale && !document.querySelector('.main-image .sale-badge')) {
+        const badge = document.createElement('div');
+        badge.className = 'sale-badge';
+        badge.textContent = 'Акция';
+        document.querySelector('.main-image').appendChild(badge);
+      }
+    }
+
+    function attachEventHandlers() {
+      // Навигация по изображениям
+      const prevBtn = document.getElementById('prevImageBtn');
+      const nextBtn = document.getElementById('nextImageBtn');
+      if (prevBtn) prevBtn.onclick = () => changeImage(-1);
+      if (nextBtn) nextBtn.onclick = () => changeImage(1);
+      
+      
+      document.querySelectorAll('.thumbnail').forEach(thumb => {
+        thumb.onclick = () => {
+          const index = parseInt(thumb.dataset.index);
+          setImage(index);
+        };
+      });
+      
+      
+      const quantityInput = document.getElementById('quantityInput');
+      const minusBtn = document.getElementById('quantityMinus');
+      const plusBtn = document.getElementById('quantityPlus');
+      
+      if (minusBtn) minusBtn.onclick = () => {
+        let val = parseInt(quantityInput.value);
+        if (val > 1) quantityInput.value = val - 1;
+      };
+      if (plusBtn) plusBtn.onclick = () => {
+        let val = parseInt(quantityInput.value);
+        if (val < 99) quantityInput.value = val + 1;
+      };
+      if (quantityInput) quantityInput.onchange = () => {
+        let val = parseInt(quantityInput.value);
+        if (isNaN(val) || val < 1) val = 1;
+        if (val > 99) val = 99;
+        quantityInput.value = val;
+      };
+      
+      
+      const addToCartBtn = document.getElementById('addToCartBtn');
+      if (addToCartBtn) {
+        addToCartBtn.onclick = () => {
+          const qty = parseInt(document.getElementById('quantityInput').value) || 1;
+          addToCart(currentProduct.id, currentProduct.name, currentProduct.price, currentProduct.icon, qty);
+          
+          addToCartBtn.innerHTML = '<i class="fas fa-check"></i> Добавлено!';
+          addToCartBtn.style.background = '#00ff66';
+          addToCartBtn.style.color = '#000';
+          setTimeout(() => {
+            addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> В корзину';
+            addToCartBtn.style.background = '';
+            addToCartBtn.style.color = '';
+          }, 800);
+        };
+      }
+      
+      const wishlistBtn = document.getElementById('wishlistBtn');
+      if (wishlistBtn) wishlistBtn.onclick = () => toggleWishlistProduct();
+      
+      
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      tabBtns.forEach(btn => {
+        btn.onclick = () => {
+          const tabId = btn.dataset.tab;
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+          document.getElementById(`tab-${tabId}`).classList.add('active');
+        };
+      });
+      
+      
+      const writeReviewBtn = document.getElementById('writeReviewBtn');
+      if (writeReviewBtn) writeReviewBtn.onclick = () => showReviewModal(currentProduct.id, currentProduct.name);
     }
 
     function changeImage(direction) {
@@ -504,23 +668,16 @@
       currentImageIndex += direction;
       if (currentImageIndex < 0) currentImageIndex = currentImages.length - 1;
       if (currentImageIndex >= currentImages.length) currentImageIndex = 0;
-      
-      const mainImage = document.getElementById('mainImage');
-      mainImage.src = currentImages[currentImageIndex];
-      
-      document.getElementById('imageCounter').textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
-      
-      document.querySelectorAll('.thumbnail').forEach((thumb, idx) => {
-        if (idx === currentImageIndex) thumb.classList.add('active');
-        else thumb.classList.remove('active');
-      });
+      setImage(currentImageIndex);
     }
 
     function setImage(index) {
       currentImageIndex = index;
       const mainImage = document.getElementById('mainImage');
-      mainImage.src = currentImages[currentImageIndex];
-      document.getElementById('imageCounter').textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
+      if (mainImage) mainImage.src = currentImages[currentImageIndex];
+      
+      const counter = document.getElementById('imageCounter');
+      if (counter) counter.textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
       
       document.querySelectorAll('.thumbnail').forEach((thumb, idx) => {
         if (idx === currentImageIndex) thumb.classList.add('active');
@@ -528,75 +685,32 @@
       });
     }
 
-    function loadProduct() {
-      const id = getProductId();
-      currentProduct = products[id];
-      
-      if (!currentProduct) {
-        window.location.href = 'catalog.html';
-        return;
-      }
-
-      
-      currentImages = getProductImages(currentProduct.id, currentProduct.name);
-      currentImageIndex = 0;
-      
-      document.getElementById('breadcrumbCategory').textContent = currentProduct.categoryName;
-      document.getElementById('breadcrumbName').textContent = currentProduct.name;
-      document.getElementById('productName').textContent = currentProduct.name;
-      document.getElementById('productPrice').textContent = currentProduct.price.toLocaleString() + ' ₽';
-      
-      // Устанавливаем главное изображение
-      const productImage = document.getElementById('mainImage');
-      productImage.src = currentImages[0] || `images/${currentProduct.name} (1).png`;
-      productImage.alt = currentProduct.name;
-      document.getElementById('imageCounter').textContent = `1 / ${currentImages.length}`;
-      
-      
-      const thumbnailList = document.getElementById('thumbnailList');
-      thumbnailList.innerHTML = '';
-      currentImages.forEach((img, idx) => {
-        const thumb = document.createElement('div');
-        thumb.className = 'thumbnail' + (idx === 0 ? ' active' : '');
-        thumb.innerHTML = `<img src="${img}" alt="Фото ${idx + 1}">`;
-        thumb.onclick = () => setImage(idx);
-        thumbnailList.appendChild(thumb);
-      });
-      
-      
-      if (currentProduct.hasSale) {
-        if (!document.querySelector('.main-image .sale-badge')) {
-          const badge = document.createElement('div');
-          badge.className = 'sale-badge';
-          badge.textContent = 'Акция';
-          document.querySelector('.main-image').appendChild(badge);
-        }
-      }
-      
-      const specsGrid = document.getElementById('productSpecs');
-      specsGrid.innerHTML = currentProduct.specs.map(spec => 
-        `<div class="spec-item"><span class="spec-label">${spec.split(' ')[0]}</span><span class="spec-value">${spec}</span></div>`
-      ).join('');
-      
-      document.getElementById('productDescription').innerHTML = `<p>${currentProduct.description}</p>`;
-      document.getElementById('fullDescription').innerHTML = currentProduct.fullDescription;
-      
-      const fullSpecs = document.getElementById('fullSpecs');
-      fullSpecs.innerHTML = currentProduct.fullSpecs.map(spec => 
-        `<div class="spec-item"><span class="spec-label">${spec.label}</span><span class="spec-value">${spec.value}</span></div>`
-      ).join('');
-      
-      loadReviews();
-      loadRelatedProducts();
+    function toggleWishlistProduct() {
+      toggleWishlist(currentProduct.id, currentProduct.name, currentProduct.price, currentProduct.icon);
       updateWishlistButton();
+    }
+
+    function updateWishlistButton() {
+      const btn = document.getElementById('wishlistBtn');
+      if (!btn) return;
+      if (isInWishlist(currentProduct.id)) {
+        btn.innerHTML = '<i class="fas fa-heart"></i> В избранном';
+        btn.classList.add('active');
+      } else {
+        btn.innerHTML = '<i class="far fa-heart"></i> В избранное';
+        btn.classList.remove('active');
+      }
     }
 
     function loadReviews() {
       const reviews = JSON.parse(localStorage.getItem('reviews')) || {};
       const productReviews = reviews[currentProduct?.id] || [];
-      document.getElementById('reviewsCount').textContent = productReviews.length;
+      const reviewsCount = document.getElementById('reviewsCount');
+      if (reviewsCount) reviewsCount.textContent = productReviews.length;
       
       const reviewsList = document.getElementById('reviewsList');
+      if (!reviewsList) return;
+      
       if (productReviews.length === 0) {
         reviewsList.innerHTML = '<p style="text-align: center; color: var(--text-gray); padding: 2rem;">✨ Пока нет отзывов. Будьте первым!</p>';
         return;
@@ -606,21 +720,35 @@
         <div class="review-item">
           <div class="review-header">
             <i class="fas fa-user-circle"></i>
-            <strong>${review.userName}</strong>
+            <strong>${escapeHtml(review.userName)}</strong>
             <div class="review-rating">
               ${Array(review.rating).fill('<i class="fas fa-star"></i>').join('')}
               ${Array(5 - review.rating).fill('<i class="far fa-star"></i>').join('')}
             </div>
           </div>
-          <p>${review.text}</p>
+          <p>${escapeHtml(review.text)}</p>
           <span class="review-date">📅 ${review.date}</span>
         </div>
       `).join('');
     }
 
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+
     function loadRelatedProducts() {
-      const related = Object.values(products).filter(p => p.category === currentProduct.category && p.id !== currentProduct.id).slice(0, 4);
+      const related = Object.values(products).filter(p => 
+        p.category === currentProduct.category && p.id !== currentProduct.id
+      ).slice(0, 4);
+      
       const container = document.getElementById('relatedProducts');
+      if (!container) return;
       
       if (related.length === 0) {
         container.innerHTML = '<p style="text-align: center; color: var(--text-gray); padding: 2rem;">Нет похожих товаров</p>';
@@ -630,7 +758,7 @@
       container.innerHTML = related.map(product => `
         <div class="product-card glass" data-id="${product.id}" onclick="window.location.href='product.html?id=${product.id}'">
           <div class="product-image">
-            <img src="images/${product.name} (1).png" alt="${product.name}">
+            <img src="images/${product.name} (1).png" alt="${product.name}" onerror="this.src='images/placeholder.png'">
             <div class="product-actions-buttons">
               <button class="btn-icon wishlist-btn-related" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-icon="${product.icon}"><i class="far fa-heart"></i></button>
             </div>
@@ -638,51 +766,109 @@
           <div class="product-info">
             <h3 class="product-title">${product.name}</h3>
             <div class="product-price">${product.price.toLocaleString()} ₽</div>
-            <div class="product-specs">${product.specs.slice(0, 3).map(s => `<span>${s}</span>`).join('')}</div>
+            <div class="product-specs">${product.specs.slice(0, 3).map(s => `<span>${s.split(' ')[0]}</span>`).join('')}</div>
             <button class="btn-small add-to-cart-related" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-icon="${product.icon}"><i class="fas fa-shopping-cart"></i> В корзину</button>
           </div>
         </div>
       `).join('');
       
       document.querySelectorAll('.add-to-cart-related').forEach(btn => {
-        btn.onclick = (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); const name = btn.dataset.name; const price = parseInt(btn.dataset.price); const icon = btn.dataset.icon; if (window.addToCart) window.addToCart(id, name, price, icon); };
+        btn.onclick = (e) => { 
+          e.stopPropagation(); 
+          const id = parseInt(btn.dataset.id); 
+          const name = btn.dataset.name; 
+          const price = parseInt(btn.dataset.price); 
+          const icon = btn.dataset.icon; 
+          addToCart(id, name, price, icon);
+        };
       });
+      
       document.querySelectorAll('.wishlist-btn-related').forEach(btn => {
-        btn.onclick = (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); const name = btn.dataset.name; const price = parseInt(btn.dataset.price); const icon = btn.dataset.icon; if (window.toggleWishlist) window.toggleWishlist(id, name, price, icon); };
+        btn.onclick = (e) => { 
+          e.stopPropagation(); 
+          const id = parseInt(btn.dataset.id); 
+          const name = btn.dataset.name; 
+          const price = parseInt(btn.dataset.price); 
+          const icon = btn.dataset.icon; 
+          toggleWishlist(id, name, price, icon);
+          updateWishlistButtons();
+        };
       });
     }
 
-    function updateWishlistButton() {
-      const btn = document.getElementById('wishlistBtn');
-      if (!btn || !currentProduct) return;
-      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-      const isInWishlist = wishlist.some(item => item.id === currentProduct.id);
-      if (isInWishlist) { btn.innerHTML = '<i class="fas fa-heart"></i> В избранном'; btn.classList.add('active'); }
-      else { btn.innerHTML = '<i class="far fa-heart"></i> В избранное'; btn.classList.remove('active'); }
+    
+    function checkAuthForActions() {
+      const isLogged = localStorage.getItem('isLoggedIn') === 'true';
+      if (!isLogged) {
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        const wishlistBtn = document.getElementById('wishlistBtn');
+        const writeReviewBtn = document.getElementById('writeReviewBtn');
+        
+        if (addToCartBtn) {
+          addToCartBtn.onclick = (e) => {
+            e.preventDefault();
+            showToast('Пожалуйста, войдите в аккаунт', true);
+            window.location.href = `login.html?redirect=product.html?id=${currentProduct?.id}`;
+          };
+        }
+        if (wishlistBtn) {
+          wishlistBtn.onclick = (e) => {
+            e.preventDefault();
+            showToast('Пожалуйста, войдите в аккаунт', true);
+            window.location.href = `login.html?redirect=product.html?id=${currentProduct?.id}`;
+          };
+        }
+        if (writeReviewBtn) {
+          writeReviewBtn.onclick = (e) => {
+            e.preventDefault();
+            showToast('Пожалуйста, войдите в аккаунт', true);
+            window.location.href = `login.html?redirect=product.html?id=${currentProduct?.id}`;
+          };
+        }
+      }
+    }
+
+    
+    const modal = document.getElementById('reviewModal');
+    if (modal) {
+      const closeBtn = modal.querySelector('.close-modal');
+      if (closeBtn) closeBtn.onclick = () => modal.classList.remove('active');
+      
+      modal.querySelectorAll('.star-rating i').forEach((star, index) => {
+        star.onclick = () => {
+          modal.querySelectorAll('.star-rating i').forEach((s, i) => {
+            if (i <= index) s.classList.add('active');
+            else s.classList.remove('active');
+          });
+        };
+      });
+      
+      const submitReview = document.getElementById('submitReview');
+      if (submitReview) {
+        submitReview.onclick = () => {
+          const rating = modal.querySelectorAll('.star-rating i.active').length;
+          const text = document.getElementById('reviewText').value;
+          
+          if (rating === 0) {
+            showToast('⭐ Поставьте оценку', true);
+            return;
+          }
+          if (!text.trim()) {
+            showToast('✏️ Напишите отзыв', true);
+            return;
+          }
+          
+          addReview(currentProduct.id, currentProduct.name, rating, text);
+          modal.classList.remove('active');
+          loadReviews();
+        };
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       loadProduct();
-      
-      const quantityInput = document.getElementById('quantityInput');
-      document.getElementById('quantityMinus').onclick = () => { let val = parseInt(quantityInput.value); if (val > 1) { quantityInput.value = val - 1; currentQuantity = val - 1; } };
-      document.getElementById('quantityPlus').onclick = () => { let val = parseInt(quantityInput.value); quantityInput.value = val + 1; currentQuantity = val + 1; };
-      quantityInput.onchange = () => { let val = parseInt(quantityInput.value); if (isNaN(val) || val < 1) val = 1; quantityInput.value = val; currentQuantity = val; };
-      
-      document.getElementById('addToCartBtn').onclick = () => { if (window.addToCart && currentProduct) window.addToCart(currentProduct.id, currentProduct.name, currentProduct.price, currentProduct.icon, currentQuantity); };
-      document.getElementById('wishlistBtn').onclick = () => { if (window.toggleWishlist && currentProduct) { window.toggleWishlist(currentProduct.id, currentProduct.name, currentProduct.price, currentProduct.icon); updateWishlistButton(); } };
-      
-      const tabBtns = document.querySelectorAll('.tab-btn');
-      const tabContents = document.querySelectorAll('.tab-content');
-      tabBtns.forEach(btn => { btn.onclick = () => { const tabId = btn.dataset.tab; tabBtns.forEach(b => b.classList.remove('active')); btn.classList.add('active'); tabContents.forEach(content => content.classList.remove('active')); document.getElementById(`tab-${tabId}`).classList.add('active'); }; });
-      
-      const modal = document.getElementById('reviewModal');
-      document.getElementById('writeReviewBtn').onclick = () => { modal.classList.add('active'); document.getElementById('reviewText').value = ''; document.querySelectorAll('.star-rating i').forEach(star => star.classList.remove('active')); };
-      modal.querySelector('.close-modal').onclick = () => modal.classList.remove('active');
-      
-      modal.querySelectorAll('.star-rating i').forEach((star, index) => { star.onclick = () => { modal.querySelectorAll('.star-rating i').forEach((s, i) => { if (i <= index) s.classList.add('active'); else s.classList.remove('active'); }); }; });
-      
-      document.getElementById('submitReview').onclick = () => { const rating = modal.querySelectorAll('.star-rating i.active').length; const text = document.getElementById('reviewText').value; if (rating === 0) { window.showToast?.('Поставьте оценку'); return; } if (!text.trim()) { window.showToast?.('Напишите отзыв'); return; } let reviews = JSON.parse(localStorage.getItem('reviews')) || {}; if (!reviews[currentProduct.id]) reviews[currentProduct.id] = []; reviews[currentProduct.id].push({ id: Date.now(), productName: currentProduct.name, rating: rating, text: text, date: new Date().toLocaleDateString('ru-RU'), userName: JSON.parse(localStorage.getItem('profile'))?.name || 'Александр Петров' }); localStorage.setItem('reviews', JSON.stringify(reviews)); window.showToast?.('Отзыв добавлен! Спасибо!'); modal.classList.remove('active'); loadReviews(); }; });
+      setTimeout(checkAuthForActions, 500);
+    });
   </script>
 </body>
 </html>

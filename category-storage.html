@@ -31,7 +31,7 @@
         </ul>
       </nav>
       <div class="header-icons">
-        <a href="login.html"><i class="fas fa-user"></i></a>
+        <div class="user-menu-area"></div>
         <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
       </div>
     </header>
@@ -52,7 +52,7 @@
       </div>
 
       <div class="search-sort">
-        <div class="search-bar">
+        <div class="search-bar" style="position: relative;">
           <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск накопителей...">
           <select id="sortSelect" class="sort-select">
             <option value="default">Сортировка</option>
@@ -70,10 +70,10 @@
       </div>
 
       <div class="product-grid" id="productsGrid">
-        <!-- Samsung 980 1TB SSD -->
+        
         <div class="product-card glass" data-price="7990" data-type="ssd" data-id="5">
           <div class="product-image">
-            <img src="images/Samsung 980 1TB (1).png" alt="Samsung 980 1TB">
+            <img src="images/Samsung 980 1TB (1).png" alt="Samsung 980 1TB" onerror="this.src='images/placeholder.png'">
             <div class="product-actions-buttons">
               <button class="btn-icon wishlist-btn" data-id="5" data-name="Samsung 980 1TB" data-price="7990" data-icon="fa-hard-drive"><i class="far fa-heart"></i></button>
               <button class="btn-icon review-btn" data-id="5" data-name="Samsung 980 1TB"><i class="far fa-star"></i></button>
@@ -87,10 +87,10 @@
           </div>
         </div>
 
-        <!-- WD Blue 2TB HDD -->
+        
         <div class="product-card glass" data-price="6590" data-type="hdd" data-id="6">
           <div class="product-image">
-            <img src="images/WD Blue 2TB HDD (1).png" alt="WD Blue 2TB HDD">
+            <img src="images/WD Blue 2TB HDD (1).png" alt="WD Blue 2TB HDD" onerror="this.src='images/placeholder.png'">
             <div class="product-actions-buttons">
               <button class="btn-icon wishlist-btn" data-id="6" data-name="WD Blue 2TB HDD" data-price="6590" data-icon="fa-hard-drive"><i class="far fa-heart"></i></button>
               <button class="btn-icon review-btn" data-id="6" data-name="WD Blue 2TB HDD"><i class="far fa-star"></i></button>
@@ -132,58 +132,28 @@
 
   <script src="javascript.js"></script>
   <script>
-    function initFilters() {
-      const filterBtns = document.querySelectorAll('.filter-btn');
-      const products = document.querySelectorAll('.product-card');
-      filterBtns.forEach(btn => {
-        btn.onclick = () => {
-          filterBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const filter = btn.dataset.filter;
-          products.forEach(product => {
-            const type = product.dataset.type;
-            if (filter === 'all') product.style.display = 'block';
-            else product.style.display = type === filter ? 'block' : 'none';
-          });
-        };
-      });
-    }
-
-    function initSearch() {
-      const searchInput = document.getElementById('searchInput');
-      if (searchInput) searchInput.oninput = () => {
-        const query = searchInput.value.toLowerCase();
-        document.querySelectorAll('.product-card').forEach(product => {
-          const title = product.querySelector('.product-title')?.textContent.toLowerCase() || '';
-          product.style.display = title.includes(query) ? 'block' : 'none';
-        });
-      };
-    }
-
-    function initSort() {
-      const sortSelect = document.getElementById('sortSelect');
-      if (sortSelect) sortSelect.onchange = () => {
-        const products = Array.from(document.querySelectorAll('.product-card'));
-        const grid = document.getElementById('productsGrid');
-        products.sort((a, b) => {
-          const priceA = parseInt(a.dataset.price);
-          const priceB = parseInt(b.dataset.price);
-          if (sortSelect.value === 'price-asc') return priceA - priceB;
-          if (sortSelect.value === 'price-desc') return priceB - priceA;
-          return 0;
-        });
-        products.forEach(p => grid.appendChild(p));
-      };
-    }
-
+    
     document.addEventListener('DOMContentLoaded', () => {
-      initFilters();
-      initSearch();
-      initSort();
-      if (typeof initProductButtons === 'function') initProductButtons();
-      if (typeof updateCartBadge === 'function') updateCartBadge();
-      if (typeof updateWishlistButtons === 'function') updateWishlistButtons();
+      
+      if (typeof initUnifiedFilters === 'function') {
+        initUnifiedFilters();
+      }
+      if (typeof initUnifiedSearch === 'function') {
+        initUnifiedSearch();
+      }
+      if (typeof initUnifiedSort === 'function') {
+        initUnifiedSort();
+      }
+      if (typeof initProductButtons === 'function') {
+        initProductButtons();
+      }
+      if (typeof updateCartBadge === 'function') {
+        updateCartBadge();
+      }
+      if (typeof updateWishlistButtons === 'function') {
+        updateWishlistButtons();
+      }
     });
   </script>
 </body>
-</html>
+</html> 

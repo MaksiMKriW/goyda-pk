@@ -8,22 +8,44 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
   <style>
-    /* Стили для баннера с изображением */
     .image-banner {
       position: relative;
       border-radius: 32px;
       overflow: hidden;
       margin-bottom: 3rem;
       box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+      animation: bannerGlow 3s ease-in-out infinite;
+    }
+    @keyframes bannerGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
+      50% { box-shadow: 0 0 50px rgba(0, 255, 255, 0.6); }
     }
     .image-banner img {
       width: 100%;
       height: 400px;
       object-fit: cover;
       object-position: center;
+      transition: transform 0.5s ease;
+    }
+    .image-banner:hover img {
+      transform: scale(1.05);
     }
     @media (max-width: 768px) {
       .image-banner img { height: 250px; }
+    }
+    .advantage-card {
+      transition: all 0.3s ease;
+    }
+    .advantage-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--neon-pink);
+    }
+    .advantage-card i {
+      transition: all 0.3s ease;
+    }
+    .advantage-card:hover i {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 15px var(--neon-cyan));
     }
   </style>
 </head>
@@ -50,18 +72,16 @@
         </ul>
       </nav>
       <div class="header-icons">
-        <a href="login.html"><i class="fas fa-user"></i></a>
+        <div class="user-menu-area"></div>
         <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
       </div>
     </header>
 
     <main class="container">
-      <!-- Верхний баннер с изображением (без текста) -->
       <div class="image-banner">
         <img src="images/complect.jpg" alt="Компьютерные комплектующие">
       </div>
 
-      <!-- Нижний hero блок с текстом (оставляем как есть) -->
       <section class="hero glass">
         <div class="hero-content">
           <h1 class="glitch-text">Собери мощный ПК<br>с GoydaPK</h1>
@@ -113,7 +133,7 @@
       </div>
 
       <h2 class="section-title">
-        <span class="title-gradient">Популярные товары</span>
+        <span class="title-gradient">🔥 Популярные товары</span>
       </h2>
 
       <div class="product-grid">
@@ -224,11 +244,70 @@
     </main>
 
     <footer class="page-footer">
-      <div class="footer-copy">© 2026 GoydaPK | Криворотов М.В, Мартиросов В.В</div>
-      <div class="footer-social">
-        <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+      <div class="footer-section">
+        <div class="footer-logo">
+          <i class="fas fa-microchip"></i>
+          <span>GoydaPK</span>
+        </div>
+        <p class="footer-description">
+          Магазин компьютерных комплектующих с 2026 года. <br>
+          Только оригинальные товары, гарантия 3 года.
+        </p>
+        <div class="footer-social-links">
+          <a href="#" class="footer-social-icon"><i class="fab fa-vk"></i></a>
+          <a href="#" class="footer-social-icon"><i class="fab fa-telegram"></i></a>
+          <a href="#" class="footer-social-icon"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Каталог</h4>
+        <div class="footer-links">
+          <a href="category-cpu.html"><i class="fas fa-microchip"></i> Процессоры</a>
+          <a href="category-ram.html"><i class="fas fa-memory"></i> Оперативная память</a>
+          <a href="category-storage.html"><i class="fas fa-hard-drive"></i> SSD / HDD</a>
+          <a href="category-gpu.html"><i class="fas fa-tv"></i> Видеокарты</a>
+          <a href="category-psu.html"><i class="fas fa-power-off"></i> Блоки питания</a>
+          <a href="category-cooling.html"><i class="fas fa-fan"></i> Охлаждение</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Контакты</h4>
+        <div class="footer-contacts">
+          <div class="footer-contact-item">
+            <i class="fas fa-phone-alt"></i>
+            <a href="tel:88005553535">8 (800) 555-35-35</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:info@goyda.pk">info@goyda.pk</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>г. Владимир, проспект Строителей, д. 22</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-clock"></i>
+            <span>Пн-Пт: 10:00-20:00, Сб-Вс: 11:00-18:00</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Информация</h4>
+        <div class="footer-links">
+          <a href="about.html"><i class="fas fa-info-circle"></i> О нас</a>
+          <a href="contacts.html"><i class="fas fa-envelope"></i> Контакты</a>
+          <a href="#"><i class="fas fa-truck"></i> Доставка и оплата</a>
+          <a href="#"><i class="fas fa-undo-alt"></i> Возврат товара</a>
+          <a href="#"><i class="fas fa-shield-alt"></i> Политика конфиденциальности</a>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <i class="fas fa-copyright"></i> 2026 GoydaPK | Криворотов М.В, Мартиросов В.В | 
+        <i class="fas fa-heart" style="color: var(--neon-pink);"></i> Все права защищены
       </div>
     </footer>
   </div>

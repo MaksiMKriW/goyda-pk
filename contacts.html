@@ -7,7 +7,35 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
-  <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_ключ&lang=ru_RU"></script>
+  <style>
+    .map-container {
+      position: relative;
+      width: 100%;
+      height: 350px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(0,255,255,0.3);
+      margin-bottom: 1rem;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .detail-item {
+      transition: transform 0.2s ease;
+    }
+    .detail-item:hover {
+      transform: translateX(5px);
+    }
+    .detail-item a {
+      color: var(--neon-cyan);
+      text-decoration: none;
+    }
+    .detail-item a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <div class="content">
@@ -32,62 +60,82 @@
         </ul>
       </nav>
       <div class="header-icons">
-        <a href="profile.html"><i class="fas fa-user"></i></a>
+        <div class="user-menu-area"></div>
         <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
       </div>
     </header>
 
     <main class="container">
       <h1 class="section-title">
-        <span class="title-gradient">Контакты</span>
+        <span class="title-gradient">📞 Контакты</span>
       </h1>
       
       <div class="contacts-grid">
-        <div class="contact-info-card glass">
-          <h3 style="margin-bottom: 1.5rem;">Мы на карте</h3>
-          <div id="map" style="height: 300px; width: 100%; border-radius: 20px; overflow: hidden;"></div>
+        <div class="contact-info-card glass" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1.5rem;">📍 Мы на карте</h3>
+          
+          
+          <div class="map-container">
+            <iframe 
+              src="https://yandex.ru/map-widget/v1/?text=Владимир%20проспект%20Строителей%2022&ll=40.407%2C56.129&z=18&pt=40.407%2C56.129"
+              width="100%" 
+              height="350" 
+              frameborder="0"
+              loading="lazy"
+              allowfullscreen="true">
+            </iframe>
+          </div>
           
           <div class="contact-details" style="margin-top: 2rem;">
             <div class="detail-item">
-              <i class="fas fa-map-marker-alt"></i>
+              <i class="fas fa-map-marker-alt" style="color: var(--neon-pink); width: 30px;"></i>
               <div>
                 <h4>Адрес</h4>
-                <p>г. Владимир, ул. Строителей, д. 22</p>
+                <p style="color: var(--text-gray);">г. Владимир, проспект Строителей, д. 22</p>
               </div>
             </div>
             <div class="detail-item">
-              <i class="fas fa-phone"></i>
+              <i class="fas fa-phone" style="color: var(--neon-pink); width: 30px;"></i>
               <div>
                 <h4>Телефон</h4>
                 <a href="tel:88005553535">8 (800) 555-35-35</a>
               </div>
             </div>
             <div class="detail-item">
-              <i class="fas fa-envelope"></i>
+              <i class="fas fa-envelope" style="color: var(--neon-pink); width: 30px;"></i>
               <div>
                 <h4>Email</h4>
                 <a href="mailto:info@goyda.pk">info@goyda.pk</a>
               </div>
             </div>
             <div class="detail-item">
-              <i class="fas fa-clock"></i>
+              <i class="fas fa-clock" style="color: var(--neon-pink); width: 30px;"></i>
               <div>
                 <h4>Режим работы</h4>
-                <p>Пн-Пт: 10:00 - 20:00<br>Сб-Вс: 11:00 - 18:00</p>
+                <p style="color: var(--text-gray);">Пн-Пт: 10:00 - 20:00<br>Сб-Вс: 11:00 - 18:00</p>
               </div>
             </div>
           </div>
+          
+          
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,255,255,0.1);">
+            <h4 style="color: var(--neon-cyan); font-size: 0.9rem; margin-bottom: 0.5rem;">🚗 Как добраться:</h4>
+            <p style="color: var(--text-gray); font-size: 0.8rem;">
+              <i class="fas fa-bus"></i> Остановка "Проспект Строителей" - 2 мин пешком<br>
+              <i class="fas fa-car"></i> Собственная парковка у входа
+            </p>
+          </div>
         </div>
 
-        <div class="contact-form-card glass">
-          <h3 style="margin-bottom: 1.5rem;">Напишите нам</h3>
+        <div class="contact-form-card glass" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1.5rem;">✉️ Напишите нам</h3>
           <form id="feedbackForm">
             <div class="form-group">
-              <input type="text" id="name" placeholder=" ">
+              <input type="text" id="name" placeholder=" " required>
               <label for="name">Ваше имя *</label>
             </div>
             <div class="form-group">
-              <input type="email" id="email" placeholder=" ">
+              <input type="email" id="email" placeholder=" " required>
               <label for="email">Электронная почта *</label>
             </div>
             <div class="form-group">
@@ -95,32 +143,38 @@
               <label for="phone">Телефон</label>
             </div>
             <div class="form-group">
-              <textarea id="message" rows="3" placeholder=" "></textarea>
+              <textarea id="message" rows="3" placeholder=" " required></textarea>
               <label for="message">Сообщение *</label>
             </div>
             <div class="form-group checkbox" style="display: flex; align-items: center; gap: 0.5rem;">
-              <input type="checkbox" id="agree" style="width: auto;">
+              <input type="checkbox" id="agree" style="width: auto;" required>
               <label for="agree" style="position: static;">Согласие на обработку данных *</label>
             </div>
             <button type="submit" class="btn btn-neon" style="width: 100%;">
               <i class="fas fa-paper-plane"></i> Отправить
             </button>
           </form>
+          
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,255,255,0.1);">
+            <p style="color: var(--text-gray); font-size: 0.75rem; text-align: center;">
+              <i class="fas fa-shield-alt"></i> Мы отвечаем в течение 24 часов
+            </p>
+          </div>
         </div>
       </div>
 
       <div class="social-links-section" style="margin-top: 3rem;">
-        <h3 style="text-align: center; margin-bottom: 1.5rem;">Мы в соцсетях</h3>
+        <h3 style="text-align: center; margin-bottom: 1.5rem;">🌐 Мы в соцсетях</h3>
         <div class="social-grid">
-          <a href="#" class="social-card glass">
+          <a href="https://vk.com/club228347080" target="_blank" class="social-card glass">
             <i class="fab fa-vk"></i>
             <span>ВКонтакте</span>
           </a>
-          <a href="#" class="social-card glass">
+          <a href="https://t.me/goydapk" target="_blank" class="social-card glass">
             <i class="fab fa-telegram"></i>
             <span>Telegram</span>
           </a>
-          <a href="#" class="social-card glass">
+          <a href="https://www.youtube.com/@GoydaPK" target="_blank" class="social-card glass">
             <i class="fab fa-youtube"></i>
             <span>YouTube</span>
           </a>
@@ -139,5 +193,39 @@
   </div>
 
   <script src="javascript.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const feedbackForm = document.getElementById('feedbackForm');
+      if (feedbackForm) {
+        feedbackForm.onsubmit = (e) => {
+          e.preventDefault();
+          
+          const name = document.getElementById('name')?.value.trim();
+          const email = document.getElementById('email')?.value.trim();
+          const message = document.getElementById('message')?.value.trim();
+          const agree = document.getElementById('agree')?.checked;
+          
+          if (!name) { showToast('❌ Введите ваше имя', true); return; }
+          if (!email || !email.includes('@')) { showToast('❌ Введите корректный email', true); return; }
+          if (!message) { showToast('❌ Введите сообщение', true); return; }
+          if (!agree) { showToast('❌ Подтвердите согласие на обработку данных', true); return; }
+          
+          showToast('✉️ Сообщение отправлено! Мы свяжемся с вами.');
+          feedbackForm.reset();
+        };
+      }
+      
+      function showToast(message, isError = false) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i> ${message}`;
+        if (isError) toast.style.background = 'linear-gradient(135deg, #ff4444, #ff0066)';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+      }
+      
+      window.showToast = showToast;
+    });
+  </script>
 </body>
 </html>
